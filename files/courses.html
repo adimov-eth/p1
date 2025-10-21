@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses & Coverage - Prime Thailand Golf</title>
+  <meta name="description" content="Prime covers the green fee up to the posted ceiling at each partner course. Members pay cart & caddie at the course.">
+  <link rel="stylesheet" href="prime-global.css">
+</head>
+<body>
+  
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="index.html" class="header__logo" aria-label="Prime Thailand Golf Home">PRIME</a>
+        
+        <nav class="header__nav" aria-label="Main navigation">
+          <a href="index.html" class="header__nav-link">Home</a>
+          <a href="membership.html" class="header__nav-link">Membership</a>
+          <a href="courses.html" class="header__nav-link header__nav-link--active">Courses & Coverage</a>
+          <a href="how-it-works.html" class="header__nav-link">How It Works</a>
+          <a href="concierge.html" class="header__nav-link">Concierge</a>
+          <a href="events.html" class="header__nav-link">Events</a>
+          <a href="faq.html" class="header__nav-link">FAQ</a>
+        </nav>
+        
+        <div class="header__utilities">
+          <div class="lang-toggle" role="group" aria-label="Language selection">
+            <span class="lang-toggle__option" data-lang="th">TH</span>
+            <span class="lang-toggle__divider"></span>
+            <span class="lang-toggle__option lang-toggle__option--active" data-lang="en">EN</span>
+          </div>
+          <a href="#contact" class="btn btn-primary">Request Invoice</a>
+          <button class="header__hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-menu__nav">
+      <a href="index.html" class="mobile-menu__link">Home</a>
+      <a href="membership.html" class="mobile-menu__link">Membership</a>
+      <a href="courses.html" class="mobile-menu__link">Courses & Coverage</a>
+      <a href="how-it-works.html" class="mobile-menu__link">How It Works</a>
+      <a href="concierge.html" class="mobile-menu__link">Concierge</a>
+      <a href="events.html" class="mobile-menu__link">Events</a>
+      <a href="faq.html" class="mobile-menu__link">FAQ</a>
+    </nav>
+    <div class="mobile-menu__cta">
+      <a href="#contact" class="btn btn-primary" style="width: 100%;">Request Invoice</a>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="container">
+      <h1 class="mb-4">Courses & Coverage</h1>
+      <p class="body-l">Prime covers the <strong>green fee</strong> up to the posted ceiling at each partner course. Members pay <strong>cart & caddie</strong> at the course.</p>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <section style="padding-bottom: 40px;">
+    <div class="container">
+      <div class="card">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+          <!-- Row 1: Search and Area -->
+          <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+            <div class="form-field" style="margin-bottom: 0;">
+              <input 
+                type="search" 
+                class="form-input" 
+                placeholder="Search course or area"
+                aria-label="Search courses"
+              >
+            </div>
+          </div>
+          
+          <!-- Row 2: Filters -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+            <div class="form-field" style="margin-bottom: 0;">
+              <select class="form-select" aria-label="Filter by area">
+                <option value="">All areas</option>
+                <option value="bangkok">Bangkok</option>
+                <option value="chonburi">Chonburi</option>
+                <option value="pathum-thani">Pathum Thani</option>
+                <option value="nakhon-pathom">Nakhon Pathom</option>
+                <option value="nonthaburi">Nonthaburi</option>
+              </select>
+            </div>
+            
+            <div class="form-field" style="margin-bottom: 0;">
+              <select class="form-select" aria-label="Filter by day type">
+                <option value="">Weekday & Weekend</option>
+                <option value="weekday">Weekday only</option>
+                <option value="weekend">Weekend only</option>
+              </select>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="flagship" style="width: 20px; height: 20px; cursor: pointer;">
+              <label for="flagship" style="cursor: pointer; font-size: 14px; font-weight: 600;">Only show flagship</label>
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-12 text-muted mt-2">Ceiling = max green fee Prime covers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES TABLE -->
+  <section style="padding-top: 0; padding-bottom: 80px;">
+    <div class="container">
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Prime ceiling (THB)</th>
+              <th>Booking window</th>
+              <th>Weekend quota</th>
+              <th>Notes</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Nikanti Golf Club</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Nakhon Pathom</div>
+              </td>
+              <td><strong>5,500</strong></td>
+              <td>14 days</td>
+              <td>limited</td>
+              <td>All-inclusive course pricing; meals included by venue policy.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Thai Country Club</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Bangkok</div>
+              </td>
+              <td><strong>6,500</strong></td>
+              <td>21 days</td>
+              <td>very limited</td>
+              <td>Strict dress code; jacket required in clubhouse.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Alpine Golf Club</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Pathum Thani</div>
+              </td>
+              <td><strong>4,200</strong></td>
+              <td>14 days</td>
+              <td>good</td>
+              <td>Cart required; walking not permitted.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Bangkok Golf Club</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Pathum Thani</div>
+              </td>
+              <td><strong>4,000</strong></td>
+              <td>7 days</td>
+              <td>good</td>
+              <td>Historic course; locker rental available.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Suwan Golf Club</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Bangkok</div>
+              </td>
+              <td><strong>3,800</strong></td>
+              <td>10 days</td>
+              <td>limited</td>
+              <td>Practice facility available; driving range included.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Muang Kaew Golf Course</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Nonthaburi</div>
+              </td>
+              <td><strong>3,500</strong></td>
+              <td>7 days</td>
+              <td>good</td>
+              <td>Family-friendly; junior rates available at course.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Lakewood Country Club</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Bangkok</div>
+              </td>
+              <td><strong>4,500</strong></td>
+              <td>14 days</td>
+              <td>limited</td>
+              <td>Championship course; tournament-grade greens.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Panya Indra Golf Club</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Pathum Thani</div>
+              </td>
+              <td><strong>3,200</strong></td>
+              <td>7 days</td>
+              <td>good</td>
+              <td>Affordable weekday play; good practice facilities.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Riverdale Golf Club</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Pathum Thani</div>
+              </td>
+              <td><strong>3,900</strong></td>
+              <td>10 days</td>
+              <td>good</td>
+              <td>Scenic layout; popular for corporate events.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Siam Country Club (Plantation)</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Chonburi</div>
+              </td>
+              <td><strong>5,800</strong></td>
+              <td>21 days</td>
+              <td>very limited</td>
+              <td>Premium resort course; cart included in ceiling.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Laem Chabang International</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Chonburi</div>
+              </td>
+              <td><strong>4,800</strong></td>
+              <td>14 days</td>
+              <td>limited</td>
+              <td>Links-style layout; advance booking recommended.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td>
+                <div style="font-weight: 600;">Royal Hills Golf Resort</div>
+                <div style="font-size: 12px; color: rgba(34, 36, 38, 0.6);">Nakhon Pathom</div>
+              </td>
+              <td><strong>4,300</strong></td>
+              <td>10 days</td>
+              <td>good</td>
+              <td>27 holes available; specify course when booking.</td>
+              <td>
+                <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 14px;">Request slot</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Pagination -->
+      <div style="display: flex; justify-content: center; gap: 8px; margin-top: 32px;">
+        <button style="padding: 8px 12px; border-radius: 8px; background: var(--prime-gold); color: var(--soft-black); border: none; cursor: pointer; font-weight: 600;">1</button>
+        <button style="padding: 8px 12px; border-radius: 8px; background: transparent; color: var(--charcoal); border: 1px solid var(--line-gray); cursor: pointer;">2</button>
+        <button style="padding: 8px 12px; border-radius: 8px; background: transparent; color: var(--charcoal); border: 1px solid var(--line-gray); cursor: pointer;">3</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLOSURE STRIP -->
+  <section style="background: var(--cloud); padding: 16px 0;">
+    <div class="container">
+      <p class="text-12 text-center text-muted">Information is indicative; course policies may apply. See Blackout Calendar.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__upper">
+      <div class="container">
+        <div class="footer__grid">
+          <div>
+            <div class="footer__brand">PRIME</div>
+            <p class="footer__tagline">Corporate golf membership for Thai executives.</p>
+          </div>
+          
+          <div>
+            <h4 class="footer__heading">Explore</h4>
+            <ul class="footer__links">
+              <li><a href="index.html" class="footer__link">Home</a></li>
+              <li><a href="membership.html" class="footer__link">Membership</a></li>
+              <li><a href="courses.html" class="footer__link">Courses & Coverage</a></li>
+              <li><a href="how-it-works.html" class="footer__link">How It Works</a></li>
+              <li><a href="concierge.html" class="footer__link">Concierge</a></li>
+              <li><a href="events.html" class="footer__link">Events</a></li>
+              <li><a href="faq.html" class="footer__link">FAQ</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="footer__heading">Company</h4>
+            <ul class="footer__links">
+              <li><a href="#" class="footer__link">About</a></li>
+              <li><a href="#" class="footer__link">PDPA & Privacy</a></li>
+              <li><a href="#" class="footer__link">Terms</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="footer__heading">Contact</h4>
+            <ul class="footer__links">
+              <li style="color: var(--charcoal); font-size: 14px;">Bangkok, Thailand</li>
+              <li><a href="tel:+6620000000" class="footer__link">+66 2 000 0000</a></li>
+              <li><a href="mailto:concierge@primethailand.golf" class="footer__link">concierge@primethailand.golf</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer__lower">
+      <div class="container">
+        <p class="footer__copyright">
+          © 2025 Prime Thailand Golf Co., Ltd. • Company registration no. 0123456789012 • 
+          <span class="lang-toggle" style="display: inline-flex; margin-left: 8px;">
+            <span class="lang-toggle__option" style="cursor: pointer;">TH</span>
+            <span style="margin: 0 4px;">|</span>
+            <span class="lang-toggle__option lang-toggle__option--active">EN</span>
+          </span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll behavior
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 50) {
+        header.classList.add('header--scrolled');
+      } else {
+        header.classList.remove('header--scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.header__hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.contains('mobile-menu--open');
+      mobileMenu.classList.toggle('mobile-menu--open');
+      hamburger.setAttribute('aria-expanded', !isOpen);
+    });
+  </script>
+
+</body>
+</html>
