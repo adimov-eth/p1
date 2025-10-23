@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/*
+ * Global color palette and theme definitions for the Prime Corporate Golf Club.
+ *
+ * Colors are defined using CSS custom properties (variables) in HSL format
+ * so that Tailwind's v4 theming system can read them via the `@theme` directive.
+ * The palette follows a deep navy and warm gold scheme inspired by the
+ * investor‑provided brand references. A light mode (default) and dark mode
+ * (`.dark` class on the html element) are provided.
+ */
+
+@layer base {
+  :root {
+    /* Light mode variables */
+    --background: 210 40% 98%;
+    --foreground: 215 55% 8%;
+
+    /* Brand primary colour (gold) and its contrast */
+    --primary: 41 43% 63%;
+    --primary-foreground: 215 55% 8%;
+
+    /* Secondary colour (deep navy) and its contrast */
+    --secondary: 218 58% 16%;
+    --secondary-foreground: 210 40% 96%;
+
+    /* Supporting colours used for subtle backgrounds and text */
+    --muted: 215 20% 90%;
+    --muted-foreground: 215 15% 40%;
+    --border: 215 20% 25%;
+    --input: 215 20% 25%;
+
+    /* Corner radius used across components */
+    --radius: 0.5rem;
+
+    /* Optional brand tokens consumed by Launch UI components for
+     * gradients and accents. These use OKLCH for smoother colour
+     * interpolation; the values correspond roughly to the gold and
+     * navy palette.
+     */
+    --brand: oklch(0.66 0.18 41.25);
+    --brand-foreground: oklch(0.24 0.09 215);
+  }
+
+  /* Dark mode overrides. Apply via `.dark` class on the root html element. */
+  .dark {
+    --background: 215 55% 8%;
+    --foreground: 210 40% 96%;
+
+    --primary: 41 43% 63%;
+    --primary-foreground: 215 55% 8%;
+
+    --secondary: 218 58% 16%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 215 25% 15%;
+    --muted-foreground: 215 12% 70%;
+    --border: 215 25% 20%;
+    --input: 215 25% 20%;
+    --radius: 0.5rem;
+
+    --brand: oklch(0.66 0.18 41.25);
+    --brand-foreground: oklch(0.24 0.09 215);
+  }
+}
+
+/*
+ * Map CSS variables into Tailwind's design tokens. The `@theme`
+ * directive is a Tailwind v4 feature that exposes custom properties as
+ * colours throughout your class names. After this declaration you can
+ * use classes like `bg-primary`, `text-primary-foreground`, `border`
+ * etc. anywhere in your components.
+ */
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+
+  --radius: var(--radius);
+  --brand: var(--brand);
+  --brand-foreground: var(--brand-foreground);
+}
