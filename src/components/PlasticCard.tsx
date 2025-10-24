@@ -47,11 +47,17 @@ export function PlasticCard({
     const arad = Math.atan2(dy, dx);
     const angle = (arad * 180 / Math.PI - 90 + 360) % 360;
 
+    // Holographic opacity - stronger at edges, dynamic with movement
+    const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
+    const maxDistance = Math.sqrt((w / 2) * (w / 2) + (h / 2) * (h / 2));
+    const edgeFactor = distanceFromCenter / maxDistance;
+    const baseOpacity = 0.3 + edgeFactor * 0.4; // 0.3 to 0.7 range
+
     setTransform(`rotateX(${xRotate}deg) rotateY(${yRotate}deg) scale3d(1.03, 1.03, 1.03)`);
     setGlare({
       x: offsetX * 100,
       y: offsetY * 100,
-      opacity: ((pageY - rect.top) / h) * 0.4,
+      opacity: baseOpacity,
       angle,
     });
   };
@@ -92,9 +98,9 @@ export function PlasticCard({
         onMouseLeave={handleMouseLeave}
       className={cn(
         'relative aspect-[1.586/1] w-full rounded-2xl p-6 sm:p-8',
-        'shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6),0_0_0_1px_rgba(201,162,78,0.2),0_0_40px_-10px_rgba(201,162,78,0.15)]',
+        'shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7),0_8px_16px_-8px_rgba(0,0,0,0.4),0_0_0_1px_rgba(201,162,78,0.25),0_0_30px_-5px_rgba(201,162,78,0.2)]',
         isGold
-          ? 'bg-gradient-to-br from-[#0a0f1a] via-[#0d1219] to-[#050810] border-2 border-primary/40'
+          ? 'bg-gradient-to-br from-[#0a0f1a] via-[#0d1219] to-[#050810] border border-primary/30'
           : 'bg-gradient-to-br from-[#0a0f1a] via-[#0d1219] to-[#050810]',
         className
       )}
@@ -104,38 +110,47 @@ export function PlasticCard({
         transition: transform ? 'transform 0.1s ease-out' : 'transform 0.2s ease-out',
       }}
     >
-      {/* Dynamic angle-based shine (Apple TV style) */}
+      {/* Holographic foil effect - color shifts with angle */}
       <div
         className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-100"
         style={{
-          background: `linear-gradient(${glare.angle}deg, rgba(255,255,255,${glare.opacity}) 0%, rgba(255,255,255,0) 80%)`,
+          background: `linear-gradient(${glare.angle}deg,
+            rgba(201, 162, 78, ${glare.opacity * 0.4}) 0%,
+            rgba(255, 215, 120, ${glare.opacity * 0.3}) 20%,
+            rgba(201, 162, 78, ${glare.opacity * 0.5}) 40%,
+            rgba(255, 255, 255, ${glare.opacity * 0.2}) 50%,
+            transparent 80%)`,
           opacity: glare.opacity > 0 ? 1 : 0,
+          mixBlendMode: 'overlay',
         }}
       />
 
-      {/* Subtle metallic shine effect */}
+      {/* Subtle metallic base shimmer */}
       <div
-        className={cn(
-          'absolute inset-0 rounded-2xl opacity-30 pointer-events-none',
-          'bg-gradient-to-tr from-transparent via-primary/15 to-transparent'
-        )}
+        className="absolute inset-0 rounded-2xl pointer-events-none opacity-20"
+        style={{
+          background: 'linear-gradient(135deg, transparent 0%, rgba(201, 162, 78, 0.15) 50%, transparent 100%)',
+        }}
       />
 
-      {/* Additional premium glow */}
+      {/* Subtle noise texture for premium tactile feel */}
       <div
-        className={cn(
-          'absolute inset-0 rounded-2xl opacity-20 pointer-events-none',
-          'bg-gradient-to-bl from-primary/10 via-transparent to-transparent'
-        )}
+        className="absolute inset-0 rounded-2xl pointer-events-none opacity-[0.015]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E")`,
+        }}
       />
+
+      {/* Subtle inner shadow for depth */}
+      <div className="absolute inset-0 rounded-2xl pointer-events-none shadow-[inset_0_2px_8px_rgba(0,0,0,0.3)]" />
 
       {/* Chip */}
       <div className="relative mb-6 sm:mb-8 flex items-start justify-between">
         <div
           className={cn(
-            'size-12 rounded-lg border',
+            'size-12 rounded-lg border backdrop-blur-sm',
             isGold
-              ? 'bg-gradient-to-br from-primary/10 to-primary/5 border-primary/40'
+              ? 'bg-gradient-to-br from-primary/15 via-primary/8 to-primary/5 border-primary/50 shadow-[0_2px_8px_rgba(201,162,78,0.2)]'
               : 'bg-gradient-to-br from-blue-200/20 to-blue-600/20 border-white/30'
           )}
         >
@@ -184,7 +199,7 @@ export function PlasticCard({
       <div
         className={cn(
           'relative mb-6 sm:mb-8 font-mono text-lg sm:text-2xl font-semibold tracking-wider',
-          'text-white drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]'
+          'text-white drop-shadow-[0_1px_4px_rgba(255,255,255,0.2)]'
         )}
       >
         {cardNumber}
@@ -199,7 +214,7 @@ export function PlasticCard({
           <div
             className={cn(
               'text-sm sm:text-base font-semibold uppercase tracking-wide text-white truncate',
-              isGold && 'text-primary drop-shadow-[0_0_12px_rgba(201,162,78,0.5)]'
+              isGold && 'text-primary drop-shadow-[0_0_8px_rgba(201,162,78,0.4)]'
             )}
           >
             {cardHolder}

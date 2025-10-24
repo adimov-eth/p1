@@ -70,7 +70,7 @@ export function PrimeLanding() {
           }}
         >
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-linear-to-b from-background/85 via-background/70 to-background/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background/90" />
         </div>
 
         {/* Content */}
