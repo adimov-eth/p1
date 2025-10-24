@@ -1,4 +1,4 @@
-import bgImage from '@/assets/bg2.png';
+import bgImage from '@/assets/bg2.webp';
 import { PlasticCard } from '@/components/PlasticCard';
 import { Button } from '@/components/ui/button';
 import { Calendar, Globe, Headphones, Star, Trophy, Users } from 'lucide-react';
