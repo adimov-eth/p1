@@ -5,8 +5,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://adimov-eth.github.io',
-  base: '/p1',
+  // Use base path for GitHub Pages, root for Cloudflare Pages
+  site: process.env.CF_PAGES
+    ? 'https://prime.pages.dev'
+    : 'https://adimov-eth.github.io',
+  base: process.env.CF_PAGES ? '/' : '/p1',
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()]
