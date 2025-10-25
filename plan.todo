@@ -1,0 +1,48 @@
+Prime MVP Demo — Execution Plan
+
+0. Setup
+- [ ] bun install; verify Astro dev starts
+- [ ] Ensure shadcn-ui 3.5.0 components installed
+
+1. Types & i18n
+- [ ] Create `src/types` from spec/Types.md
+- [ ] Add `src/lib/i18n` with `t()` and load EN resources
+
+2. Mock Services
+- [ ] Add `src/mocks` (seed, service, util) per spec/Mocks.md
+- [ ] Create `src/lib/services` switch (env `VITE_USE_MOCKS=true`)
+
+3. App Shells
+- [ ] Layout shells for App/Console/Partner/Public
+- [ ] Global QueryProvider; toast provider; base styles
+
+4. LIFF Screens
+- [ ] /app (Home): usage + next booking
+- [ ] /app/card (Digital Card): QR + simulate check-in
+- [ ] /app/bookings (List): upcoming/past tabs
+- [ ] /app/bookings/:id (Detail): invite guest dialog
+
+5. Concierge Console
+- [ ] /console (Dashboard): SLA cards + queue table
+- [ ] /console/bookings: data table + create/edit dialog
+- [ ] /console/members/:id: usage/bookings/notes tabs
+- [ ] /console/courses: table + policy dialog
+
+6. Partner Portal
+- [ ] /partner/statements: list view
+- [ ] /partner/statements/:id: detail + verify/dispute
+
+7. Public
+- [ ] /rsvp: simple RSVP form
+
+8. E‑Sign Widget
+- [ ] /esign/:orgId: form + signature + mock complete
+
+9. Polish
+- [ ] Empty/loading/error states; toasts
+- [ ] EN i18n coverage; log missing
+- [ ] Mobile spacing and focus order
+
+10. Demo Script & Docs
+- [ ] Prepare click-through demo script
+- [ ] Re-read `spec/ReadingOrder.md` and verify cross-links

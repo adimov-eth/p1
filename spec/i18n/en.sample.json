@@ -1,0 +1,33 @@
+{
+  "common": {
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close"
+  },
+  "app": {
+    "home.title": "Welcome",
+    "home.roundsRemaining": "Rounds remaining",
+    "home.nextBooking": "Next booking",
+    "card.title": "Digital Membership Card",
+    "card.checkin": "Tap to check in",
+    "bookings.title": "My Bookings",
+    "bookings.upcoming": "Upcoming",
+    "bookings.past": "Past",
+    "booking.inviteGuest": "Invite Guest"
+  },
+  "console": {
+    "dashboard.title": "Concierge Dashboard",
+    "bookings.create": "Create Booking",
+    "members.profile": "Member Profile"
+  },
+  "partner": {
+    "statements.title": "Monthly Statements",
+    "verify": "Verify",
+    "dispute": "Dispute"
+  },
+  "public": {
+    "rsvp.title": "RSVP"
+  }
+}
+

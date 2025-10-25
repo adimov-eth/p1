@@ -4,7 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Prime is a corporate golf club landing page built with Astro and React. The project showcases premium membership offerings with interactive 3D card effects and modern design. It's deployed to GitHub Pages at `https://adimov-eth.github.io/p1/`.
+Prime is a corporate golf club landing page built with Astro and React. The project showcases premium membership offerings with interactive 3D card effects and modern design.
+
+**Current Scope:** Static marketing landing page only. The `spec/` directory contains documentation for the full membership platform (LINE Mini-App, concierge console, partner portal) which will be implemented in a future iteration.
+
+**Deployment:**
+- GitHub Pages: `https://adimov-eth.github.io/p1/` (base path: `/p1/`)
+- Cloudflare Pages: `https://prime.pages.dev` (base path: `/`)
+
+The site automatically detects the deployment environment via `process.env.CF_PAGES` in `astro.config.mjs`.
 
 ## Commands
 
@@ -66,18 +74,36 @@ public/              # Static files (favicon, etc.)
 
 ## Deployment Configuration
 
-The site deploys to GitHub Pages with:
-- **Base path**: `/p1/` (configured in `astro.config.mjs`)
-- **Site URL**: `https://adimov-eth.github.io`
+**Dual deployment strategy** configured in `astro.config.mjs`:
 
-When modifying asset paths or links, account for the `/p1/` base path.
+```javascript
+site: process.env.CF_PAGES
+  ? 'https://prime.pages.dev'
+  : 'https://adimov-eth.github.io',
+base: process.env.CF_PAGES ? '/' : '/p1'
+```
+
+- **GitHub Pages**: Uses `/p1/` base path, deploys via `.github/workflows/deploy.yml` on push to main
+- **Cloudflare Pages**: Uses `/` base path, auto-detected via `CF_PAGES` env var
+
+When referencing assets or links:
+- Astro's path resolution handles base path automatically for `import` statements
+- For hardcoded paths in components, use relative paths or Astro's `base` config
+- All assets in `src/assets/` get optimized and path-rewritten automatically
 
 ## Styling Approach
 
-- **Tailwind Utilities**: Compose classes directly in JSX
-- **Design Tokens**: Shared utilities in `src/styles/utils.css`
-- **Icons**: Use Lucide React (`lucide-react`) for consistency
-- **Custom Effects**: See `PrimeLanding.tsx` for mouse-tracking spotlight effect implementation
+- **Tailwind CSS 4**: CSS-first configuration in `src/styles/global.css` (no `tailwind.config.js`)
+- **Integration**: Via `@tailwindcss/vite` plugin in `astro.config.mjs`
+- **Utilities**: Compose classes directly in JSX using `cn()` helper from `src/lib/utils.ts`
+- **Design System**:
+  - Base styles and CSS variables in `src/styles/global.css`
+  - Utility classes in `src/styles/utils.css`
+  - `cn()` function merges Tailwind classes with conditional logic (uses `clsx` + `tailwind-merge`)
+- **Icons**: Lucide React (`lucide-react`) for all icons
+- **Interactive Effects**:
+  - `PrimeLanding.tsx`: Mouse-tracking spotlight on feature cards using CSS custom properties
+  - `PlasticCard.tsx`: 3D tilt and holographic glare effects with mouse interaction
 
 ## Testing
 
@@ -95,4 +121,44 @@ To add tests: Install Vitest + Testing Library and create co-located `.test.tsx`
 - **Quotes**: Single quotes in TypeScript/React
 - **Component Names**: PascalCase for React components and Astro layouts
 - **Utilities**: camelCase in `src/lib/`
-- **Imports**: Use `@/` path alias for all src imports
+- **Imports**: Use `@/` path alias for all src imports (configured in `tsconfig.json`)
+
+## Key Implementation Details
+
+**Interactive Card Effects:**
+
+The `PlasticCard.tsx` component implements 3D perspective transforms and holographic glare:
+- Mouse position relative to card → rotation angles (yaw/pitch)
+- Dynamic CSS custom properties for real-time updates
+- Smooth transitions on hover/leave
+- Works in both gold and navy color variants
+
+**Mouse Tracking Pattern:**
+
+Both `PrimeLanding.tsx` and `PlasticCard.tsx` use `useEffect` to attach mouse event listeners:
+```tsx
+React.useEffect(() => {
+  const handleMouseMove = (e: MouseEvent) => {
+    // Calculate position relative to element
+    // Update CSS custom properties
+    element.style.setProperty('--mouse-x', `${x}px`);
+  };
+  element.addEventListener('mousemove', handleMouseMove);
+  return () => element.removeEventListener('mousemove', handleMouseMove);
+}, []);
+```
+
+**Astro Islands Architecture:**
+
+- `.astro` files are server-rendered by default (static HTML)
+- `client:load` directive hydrates React components on page load
+- Only `PrimeLanding` needs hydration (for mouse interactions)
+- Keep heavy interactive logic in React components, not Astro files
+
+**Future Implementation Note:**
+
+When transitioning from landing page to full app (as documented in `spec/`):
+- Current React components can be migrated to the app shell
+- Astro will likely be replaced with a React SPA framework (Next.js/Remix)
+- Tailwind design tokens in `global.css` should be preserved
+- `PlasticCard` component can be reused in the LINE Mini-App digital card view

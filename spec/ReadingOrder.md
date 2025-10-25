@@ -1,0 +1,34 @@
+# How To Read This Spec (Order)
+
+- 1) Vision — `spec/Vision.md`
+  - Why we exist; guardrails; success metrics.
+- 2) PRD — `spec/PRD.md`
+  - Scope, acceptance criteria, dependencies.
+- 3) Product Areas — `spec/ProductAreas.md`
+  - What we’re building per area.
+- 4) User Journeys — `spec/UserJourneys.md`
+  - End-to-end flows; edge cases.
+- 5) Data Model — `spec/DataModel.md`
+  - Entities and relationships; policy encoding.
+- 6) Types — `spec/Types.md`
+  - DTOs for UI and APIs.
+- 7) APIs — `spec/APIs.md`
+  - Endpoints and contracts; check-in, bookings, statements, e‑sign.
+- 8) Architecture — `spec/Architecture.md`
+  - Stack, state, routing, deployment.
+- 9) UI Build Plan — `spec/UIBuildPlan.md`
+  - Screen-by-screen components and DoD.
+- 10) Mocks — `spec/Mocks.md`
+  - Toggle, seeds, functions, constraints.
+- 11) Ops & SLAs — `spec/Processes.md`, `spec/SLAs.md`
+  - Concierge playbooks, financial ops, service targets.
+- 12) Security & Privacy — `spec/SecurityPrivacy.md`
+  - PDPA-aligned practices and contact.
+- 13) Courses & Partners — `spec/Courses.md`, `spec/PartnerProgram.md`
+  - Pilot courses, manual comms; future integrations.
+- 14) E‑Sign — `spec/ESign.md`
+  - Internal widget flow and storage.
+- 15) Roadmap & GTM — `spec/Roadmap.md`, `spec/GTM.md`
+  - Release phases and launch plan.
+- 16) UAT — `spec/UAT.md` and `docs/UAT Dashboard.md`
+  - Acceptance scenarios and runbook.

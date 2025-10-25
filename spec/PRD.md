@@ -33,17 +33,20 @@ Out of Scope (MVP)
 - Performance: LIFF views TTI < 2.5s on 4G; API p95 < 300ms in-region.
 
 ## Dependencies
-- LIFF (LINE Mini-App), Postgres, email provider, LINE Official Account, e-sign + accounting integration (webhook-based).
+- LIFF (LINE Mini-App), Postgres, email provider, LINE Official Account.
+- Internal E‑Sign widget (no external vendor) and optional accounting webhook.
 
 ## Acceptance Criteria
+- A0: Internal e‑sign widget produces a signed agreement record and moves org to Ready for Invoice.
 - A1: Organization admin can assign two designated users; changes log and enforce fee for transfers (logic stub OK).
 - A2: Concierge can create booking with players (member + guests); member sees it in LIFF.
 - A3: NFC/QR check-in records usage and decrements remaining rounds correctly; guest count respected.
 - A4: Cancellations inside 48h mark usage as forfeited; outside 48h restore quota.
 - A5: Monthly statement export includes course, date, players, and status; partner can mark verified.
 - A6: PRD metrics and SLAs can be monitored (basic dashboards or logs).
+- A7: i18n architecture in place; all UI strings key‑based with EN resources; missing key logging in dev.
 
 ## Open Questions
-- Which e-sign and accounting vendors (DocuSign/Xero/etc.) for v1?
-- Are any partner courses requiring API-based tee-time verification?
-- Multi-language requirement at launch (TH/EN) for LIFF and concierge comms?
+- Accounting vendor (Xero/others) for future automation; manual acceptable for MVP.
+- Partner course API pilots (none initially; manual channels only).
+- Localization rollout timing for Thai copy; architecture supports EN/TH from day 1.

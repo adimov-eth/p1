@@ -12,6 +12,7 @@ bunx shadcn@latest add button card badge input label textarea select checkbox ra
 Notes
 - Configured via `components.json` with css at `src/styles/global.css`.
 - Components live in `src/components/ui/*`; wrap domain widgets in `src/components/*`.
+- Extract all visible text to i18n keys; use EN resources first (`spec/i18n/en.sample.json`). TH to follow.
 
 ## Apps & Screens
 
