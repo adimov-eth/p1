@@ -10,7 +10,7 @@ if (!id) throw new Error('Missing statement ID');
 
 <Layout title="Prime Partner - Statement Detail">
   <RootProvider client:only="react">
-    <ErrorBoundary client:only="react">
+    <ErrorBoundary>
       <StatementDetailPage statementId={id} client:only="react" />
     </ErrorBoundary>
   </RootProvider>

@@ -7,7 +7,8 @@ import HomePage from '@/components/app/HomePage';
 
 <Layout title="Prime - Home">
   <RootProvider client:only="react">
-    <ErrorBoundary client:only="react">
-      <HomePage client:only="react" />    </ErrorBoundary>
+    <ErrorBoundary>
+      <HomePage />
+    </ErrorBoundary>
   </RootProvider>
 </Layout>

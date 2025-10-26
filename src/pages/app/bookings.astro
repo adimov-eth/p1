@@ -7,7 +7,7 @@ import BookingsPage from '@/components/app/BookingsPage';
 
 <Layout title="Prime - My Bookings">
   <RootProvider client:only="react">
-    <ErrorBoundary client:only="react">
-      <BookingsPage client:only="react" />    </ErrorBoundary>
+    <ErrorBoundary>
+      <BookingsPage />    </ErrorBoundary>
   </RootProvider>
 </Layout>

@@ -7,7 +7,8 @@ import DashboardPage from '@/components/console/DashboardPage';
 
 <Layout title="Prime Concierge - Dashboard">
   <RootProvider client:only="react">
-    <ErrorBoundary client:only="react">
-      <DashboardPage client:only="react" />    </ErrorBoundary>
+    <ErrorBoundary>
+      <DashboardPage />
+    </ErrorBoundary>
   </RootProvider>
 </Layout>

@@ -10,7 +10,7 @@ if (!id) throw new Error('Missing booking ID');
 
 <Layout title="Prime - Booking Details">
   <RootProvider client:only="react">
-    <ErrorBoundary client:only="react">
+    <ErrorBoundary>
       <BookingDetailPage bookingId={id} client:only="react" />
     </ErrorBoundary>
   </RootProvider>
