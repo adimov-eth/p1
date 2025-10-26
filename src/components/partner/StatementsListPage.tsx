@@ -16,11 +16,11 @@ export default function StatementsListPage() {
   });
 
   const statusColors = {
-    draft: 'bg-slate-100 text-slate-800',
-    sent: 'bg-blue-100 text-blue-800',
-    verified: 'bg-green-100 text-green-800',
-    disputed: 'bg-red-100 text-red-800',
-    paid: 'bg-purple-100 text-purple-800',
+    draft: 'bg-slate-500 text-white font-semibold',
+    sent: 'bg-blue-500 text-white font-semibold',
+    verified: 'bg-green-500 text-white font-semibold',
+    disputed: 'bg-red-500 text-white font-semibold',
+    paid: 'bg-purple-500 text-white font-semibold',
   };
 
   return (
@@ -28,8 +28,8 @@ export default function StatementsListPage() {
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">{t('partner.statements.title')}</h1>
-          <p className="text-slate-600 mt-1">{t('partner.statements.subtitle')}</p>
+          <h1 className="text-4xl font-bold text-slate-900">{t('partner.statements.title')}</h1>
+          <p className="text-slate-600 mt-2 text-lg">{t('partner.statements.subtitle')}</p>
         </div>
 
         {/* Statements List */}
@@ -42,25 +42,25 @@ export default function StatementsListPage() {
           ) : data && data.items.length > 0 ? (
             data.items.map((statement) => (
               <a key={statement.id} href={`/partner/statements/${statement.id}`} className="block">
-                <Card className="hover:border-slate-300 transition-colors">
+                <Card className="bg-white border-2 border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all">
                   <CardContent className="pt-6">
                     <div className="flex items-start justify-between">
                       <div className="flex gap-4 flex-1">
                         <div className="flex-shrink-0">
-                          <div className="h-12 w-12 rounded-lg bg-blue-100 flex items-center justify-center">
-                            <FileText className="h-6 w-6 text-blue-600" />
+                          <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-md">
+                            <FileText className="h-7 w-7 text-white" />
                           </div>
                         </div>
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-semibold text-lg text-slate-900">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="font-bold text-xl text-slate-900">
                               {statement.course.name}
                             </h3>
                             <Badge className={statusColors[statement.status]}>
                               {t(`partner.statements.status.${statement.status}`)}
                             </Badge>
                           </div>
-                          <div className="flex items-center gap-4 text-sm text-slate-600">
+                          <div className="flex items-center gap-4 text-sm text-slate-700 font-medium">
                             <div className="flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
                               <span>{statement.month}</span>
@@ -74,8 +74,8 @@ export default function StatementsListPage() {
                           </div>
                         </div>
                       </div>
-                      <div className="text-sm text-blue-600 font-medium">
-                        {t('partner.statements.view')}
+                      <div className="text-sm text-blue-600 hover:text-blue-700 font-bold px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                        {t('partner.statements.view')} →
                       </div>
                     </div>
                   </CardContent>

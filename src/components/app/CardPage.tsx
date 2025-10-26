@@ -25,13 +25,13 @@ export default function CardPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
       <div className="max-w-md mx-auto space-y-6">
         {/* Back Link */}
-        <a href="/app" className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900">
-          {t('common.backToHome')}
+        <a href="/app" className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+          ← {t('common.backToHome')}
         </a>
 
         {/* Card Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-slate-900">{t('app.card.title')}</h1>
+          <h1 className="text-4xl font-bold text-slate-900">{t('app.card.title')}</h1>
         </div>
 
         {/* Membership Card */}
@@ -60,19 +60,19 @@ export default function CardPage() {
         </Card>
 
         {/* Check-in Button */}
-        <Card>
+        <Card className="bg-gradient-to-br from-slate-800 to-slate-900 text-white border-0 shadow-xl">
           <CardHeader>
-            <CardTitle className="text-center">{t('app.card.checkin')}</CardTitle>
+            <CardTitle className="text-center text-white text-xl">{t('app.card.checkin')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <p className="text-sm text-slate-600 text-center">
+              <p className="text-sm text-slate-300 text-center">
                 {t('app.card.scanInstruction')}
               </p>
               <Button
                 onClick={() => checkinMutation.mutate()}
                 disabled={checkinMutation.isPending}
-                className="w-full"
+                className="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold"
                 size="lg"
               >
                 {checkinMutation.isPending ? t('common.loading') : t('app.card.simulate')}
@@ -82,14 +82,14 @@ export default function CardPage() {
         </Card>
 
         {/* Instructions */}
-        <Card>
-          <CardContent className="pt-6">
-            <div className="space-y-3 text-sm text-slate-600">
-              <p className="font-semibold text-slate-900">{t('app.card.howTo')}</p>
-              <ol className="list-decimal list-inside space-y-2">
-                <li>{t('app.card.step1')}</li>
-                <li>{t('app.card.step2')}</li>
-                <li>{t('app.card.step3')}</li>
+        <Card className="bg-gradient-to-br from-slate-800 to-slate-900 text-white border-0 shadow-xl">
+          <CardContent className="pt-6 pb-6">
+            <div className="space-y-4">
+              <p className="font-bold text-lg text-white">{t('app.card.howTo')}</p>
+              <ol className="list-decimal list-inside space-y-3 text-sm text-slate-200">
+                <li className="pl-2">{t('app.card.step1')}</li>
+                <li className="pl-2">{t('app.card.step2')}</li>
+                <li className="pl-2">{t('app.card.step3')}</li>
               </ol>
             </div>
           </CardContent>

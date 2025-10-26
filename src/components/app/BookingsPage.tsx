@@ -14,23 +14,23 @@ function BookingCard({ booking }: { booking: Booking }) {
   const { t } = useTranslation();
 
   const statusColors = {
-    confirmed: 'bg-green-100 text-green-800',
-    pending: 'bg-yellow-100 text-yellow-800',
-    cancelled: 'bg-red-100 text-red-800',
-    completed: 'bg-blue-100 text-blue-800',
+    confirmed: 'bg-green-500 text-white font-semibold',
+    pending: 'bg-yellow-500 text-slate-900 font-semibold',
+    cancelled: 'bg-red-500 text-white font-semibold',
+    completed: 'bg-blue-500 text-white font-semibold',
   };
 
   return (
     <a href={`/app/bookings/${booking.id}`} className="block">
-      <Card className="hover:border-slate-300 transition-colors">
+      <Card className="bg-gradient-to-br from-slate-800 to-slate-900 text-white border-0 shadow-lg hover:shadow-xl transition-all">
         <CardContent className="pt-6">
           <div className="space-y-3">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="font-semibold text-lg text-slate-900">
+                <h3 className="font-bold text-xl text-white mb-1">
                   {booking.courseName}
                 </h3>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-slate-300">
                   {format(new Date(booking.date), 'EEEE, MMMM d, yyyy')}
                 </p>
               </div>
@@ -39,14 +39,14 @@ function BookingCard({ booking }: { booking: Booking }) {
               </Badge>
             </div>
 
-            <div className="flex items-center gap-4 text-sm text-slate-600">
+            <div className="flex items-center gap-4 text-sm text-slate-300 bg-white/10 px-3 py-2 rounded-lg">
               <div className="flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
-                <span>{booking.teeTime}</span>
+                <span className="font-medium">{booking.teeTime}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Users className="h-4 w-4" />
-                <span>{booking.players.length} player{booking.players.length > 1 ? 's' : ''}</span>
+                <span className="font-medium">{booking.players.length} player{booking.players.length > 1 ? 's' : ''}</span>
               </div>
             </div>
           </div>
@@ -77,13 +77,13 @@ export default function BookingsPage() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
       <div className="max-w-md mx-auto space-y-6">
         {/* Back Link */}
-        <a href="/app" className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900">
-          {t('common.backToHome')}
+        <a href="/app" className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+          ← {t('common.backToHome')}
         </a>
 
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-slate-900">{t('app.bookings.title')}</h1>
+          <h1 className="text-4xl font-bold text-slate-900">{t('app.bookings.title')}</h1>
         </div>
 
         {/* Tabs */}
