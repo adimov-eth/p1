@@ -1,17 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import RootProvider from '@/lib/providers/RootProvider';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import StatementDetailPage from '@/components/partner/StatementDetailPage';
+import StatementDetailPageWrapper from '@/components/partner/StatementDetailPageWrapper';
 
 const { id } = Astro.params;
 if (!id) throw new Error('Missing statement ID');
 ---
 
 <Layout title="Prime Partner - Statement Detail">
-  <RootProvider client:only="react">
-    <ErrorBoundary>
-      <StatementDetailPage statementId={id} client:only="react" />
-    </ErrorBoundary>
-  </RootProvider>
+  <StatementDetailPageWrapper statementId={id} client:only="react" />
 </Layout>

@@ -1,13 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import RootProvider from '@/lib/providers/RootProvider';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import CardPage from '@/components/app/CardPage';
+import CardPageWrapper from '@/components/app/CardPageWrapper';
 ---
 
 <Layout title="Prime - Digital Card">
-  <RootProvider client:only="react">
-    <ErrorBoundary>
-      <CardPage />    </ErrorBoundary>
-  </RootProvider>
+  <CardPageWrapper client:only="react" />
 </Layout>

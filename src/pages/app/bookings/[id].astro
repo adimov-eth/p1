@@ -1,17 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import RootProvider from '@/lib/providers/RootProvider';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import BookingDetailPage from '@/components/app/BookingDetailPage';
+import BookingDetailPageWrapper from '@/components/app/BookingDetailPageWrapper';
 
 const { id } = Astro.params;
 if (!id) throw new Error('Missing booking ID');
 ---
 
 <Layout title="Prime - Booking Details">
-  <RootProvider client:only="react">
-    <ErrorBoundary>
-      <BookingDetailPage bookingId={id} client:only="react" />
-    </ErrorBoundary>
-  </RootProvider>
+  <BookingDetailPageWrapper bookingId={id} client:only="react" />
 </Layout>

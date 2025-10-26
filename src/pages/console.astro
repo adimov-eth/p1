@@ -1,14 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import RootProvider from '@/lib/providers/RootProvider';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import DashboardPage from '@/components/console/DashboardPage';
+import ConsolePage from '@/components/console/ConsolePage';
 ---
 
 <Layout title="Prime Concierge - Dashboard">
-  <RootProvider client:only="react">
-    <ErrorBoundary>
-      <DashboardPage />
-    </ErrorBoundary>
-  </RootProvider>
+  <ConsolePage client:only="react" />
 </Layout>
