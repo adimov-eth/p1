@@ -29,7 +29,7 @@ export default function StatementsListPage() {
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold text-slate-900">{t('partner.statements.title')}</h1>
-          <p className="text-slate-600 mt-1">Review and verify your monthly activity statements</p>
+          <p className="text-slate-600 mt-1">{t('partner.statements.subtitle')}</p>
         </div>
 
         {/* Statements List */}
@@ -75,7 +75,7 @@ export default function StatementsListPage() {
                         </div>
                       </div>
                       <div className="text-sm text-blue-600 font-medium">
-                        View →
+                        {t('partner.statements.view')}
                       </div>
                     </div>
                   </CardContent>

@@ -1,20 +1,30 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAppHome } from '@/mocks/service';
 import { useTranslation } from '@/lib/i18n/context';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, TrendingUp, Trophy } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Calendar, TrendingUp, Trophy, RotateCcw } from 'lucide-react';
 import { format } from 'date-fns';
+import { mockState } from '@/mocks/state';
+import { toast } from 'sonner';
 
 export default function HomePage() {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['appHome', 'ORG_001'],
     queryFn: () => getAppHome('ORG_001'),
   });
+
+  const handleReset = () => {
+    mockState.reset();
+    queryClient.invalidateQueries();
+    toast.success('Demo state reset');
+  };
 
   if (isLoading) {
     return (
@@ -51,6 +61,19 @@ export default function HomePage() {
           <h1 className="text-3xl font-bold text-slate-900">{t('app.home.title')}</h1>
           <p className="text-slate-600 mt-2">Acme Corporation</p>
         </div>
+
+        {/* Demo Reset Button (Dev Only) */}
+        {import.meta.env.DEV && (
+          <Button
+            onClick={handleReset}
+            variant="outline"
+            size="sm"
+            className="w-full"
+          >
+            <RotateCcw className="h-4 w-4 mr-2" />
+            Reset Demo State
+          </Button>
+        )}
 
         {/* Usage Summary */}
         <Card>

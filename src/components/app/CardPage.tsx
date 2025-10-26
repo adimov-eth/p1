@@ -26,7 +26,7 @@ export default function CardPage() {
       <div className="max-w-md mx-auto space-y-6">
         {/* Back Link */}
         <a href="/app" className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900">
-          ← Back to Home
+          {t('common.backToHome')}
         </a>
 
         {/* Card Header */}
@@ -67,7 +67,7 @@ export default function CardPage() {
           <CardContent>
             <div className="space-y-4">
               <p className="text-sm text-slate-600 text-center">
-                Scan your QR code at the course, or simulate check-in for demo purposes.
+                {t('app.card.scanInstruction')}
               </p>
               <Button
                 onClick={() => checkinMutation.mutate()}
@@ -75,7 +75,7 @@ export default function CardPage() {
                 className="w-full"
                 size="lg"
               >
-                {checkinMutation.isPending ? 'Checking in...' : t('app.card.simulate')}
+                {checkinMutation.isPending ? t('common.loading') : t('app.card.simulate')}
               </Button>
             </div>
           </CardContent>
@@ -85,11 +85,11 @@ export default function CardPage() {
         <Card>
           <CardContent className="pt-6">
             <div className="space-y-3 text-sm text-slate-600">
-              <p className="font-semibold text-slate-900">How to Check In:</p>
+              <p className="font-semibold text-slate-900">{t('app.card.howTo')}</p>
               <ol className="list-decimal list-inside space-y-2">
-                <li>Show this QR code to the course staff</li>
-                <li>They will scan it to confirm your booking</li>
-                <li>Your usage will be automatically tracked</li>
+                <li>{t('app.card.step1')}</li>
+                <li>{t('app.card.step2')}</li>
+                <li>{t('app.card.step3')}</li>
               </ol>
             </div>
           </CardContent>

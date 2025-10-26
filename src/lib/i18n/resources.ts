@@ -15,6 +15,11 @@ export const enUS = {
       checkinSuccess: 'Check-in successful!',
       checkinError: 'Check-in failed',
       simulate: 'Simulate Check-in',
+      howTo: 'How to Check In:',
+      step1: 'Show this QR code to the course staff',
+      step2: 'They will scan it to confirm your booking',
+      step3: 'Your usage will be automatically tracked',
+      scanInstruction: 'Scan your QR code at the course, or simulate check-in for demo purposes.',
     },
     bookings: {
       title: 'My Bookings',
@@ -32,15 +37,23 @@ export const enUS = {
   console: {
     dashboard: {
       title: 'Concierge Dashboard',
+      subtitle: 'Service Level Agreement metrics and request queue',
       sla: {
         title: 'SLA Metrics',
         responseTime: 'Avg Response Time',
         fulfillmentRate: 'Fulfillment Rate',
         satisfactionScore: 'Satisfaction Score',
+        period: 'Last 30 days',
+        feedbackLabel: 'Member feedback',
       },
       queue: {
         title: 'Request Queue',
         empty: 'No pending requests',
+        pending: 'pending',
+      },
+      actions: {
+        manageBookings: 'Manage Bookings',
+        memberProfiles: 'Member Profiles',
       },
     },
     bookings: {
@@ -54,7 +67,9 @@ export const enUS = {
   partner: {
     statements: {
       title: 'Monthly Statements',
+      subtitle: 'Review and verify your monthly activity statements',
       empty: 'No statements',
+      view: 'View →',
       status: {
         draft: 'Draft',
         sent: 'Sent',
@@ -73,6 +88,11 @@ export const enUS = {
     close: 'Close',
     verify: 'Verify',
     dispute: 'Dispute',
+    backToHome: '← Back to Home',
+    players: 'player',
+    playersPlural: 'players',
+    bookings: 'booking',
+    bookingsPlural: 'bookings',
   },
 };
 

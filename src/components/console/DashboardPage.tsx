@@ -37,7 +37,7 @@ export default function DashboardPage() {
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold text-slate-900">{t('console.dashboard.title')}</h1>
-          <p className="text-slate-600 mt-1">Service Level Agreement metrics and request queue</p>
+          <p className="text-slate-600 mt-1">{t('console.dashboard.subtitle')}</p>
         </div>
 
         {/* SLA Metrics */}
@@ -51,7 +51,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-slate-900">{slaMetrics.avgResponseTime}</p>
-              <p className="text-sm text-slate-500 mt-1">Last 30 days</p>
+              <p className="text-sm text-slate-500 mt-1">{t('console.dashboard.sla.period')}</p>
             </CardContent>
           </Card>
 
@@ -64,7 +64,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-slate-900">{slaMetrics.fulfillmentRate}</p>
-              <p className="text-sm text-slate-500 mt-1">Last 30 days</p>
+              <p className="text-sm text-slate-500 mt-1">{t('console.dashboard.sla.period')}</p>
             </CardContent>
           </Card>
 
@@ -77,7 +77,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-slate-900">{slaMetrics.satisfactionScore}</p>
-              <p className="text-sm text-slate-500 mt-1">Member feedback</p>
+              <p className="text-sm text-slate-500 mt-1">{t('console.dashboard.sla.feedbackLabel')}</p>
             </CardContent>
           </Card>
         </div>
@@ -90,7 +90,7 @@ export default function DashboardPage() {
                 <Calendar className="h-5 w-5" />
                 {t('console.dashboard.queue.title')}
               </CardTitle>
-              <Badge>{requestQueue.length} pending</Badge>
+              <Badge>{requestQueue.length} {t('console.dashboard.queue.pending')}</Badge>
             </div>
           </CardHeader>
           <CardContent>
@@ -133,14 +133,14 @@ export default function DashboardPage() {
             className="block p-6 bg-white rounded-lg border border-slate-200 hover:border-slate-300 transition-colors text-center"
           >
             <div className="text-3xl mb-2">📅</div>
-            <div className="font-semibold">Manage Bookings</div>
+            <div className="font-semibold">{t('console.dashboard.actions.manageBookings')}</div>
           </a>
           <a
             href="/console/members"
             className="block p-6 bg-white rounded-lg border border-slate-200 hover:border-slate-300 transition-colors text-center"
           >
             <div className="text-3xl mb-2">👥</div>
-            <div className="font-semibold">Member Profiles</div>
+            <div className="font-semibold">{t('console.dashboard.actions.memberProfiles')}</div>
           </a>
         </div>
       </div>

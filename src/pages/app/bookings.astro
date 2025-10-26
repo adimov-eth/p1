@@ -1,11 +1,13 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import RootProvider from '@/lib/providers/RootProvider';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import BookingsPage from '@/components/app/BookingsPage';
 ---
 
 <Layout title="Prime - My Bookings">
   <RootProvider client:only="react">
-    <BookingsPage client:only="react" />
+    <ErrorBoundary client:only="react">
+      <BookingsPage client:only="react" />    </ErrorBoundary>
   </RootProvider>
 </Layout>

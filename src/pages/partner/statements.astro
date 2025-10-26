@@ -1,11 +1,13 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import RootProvider from '@/lib/providers/RootProvider';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import StatementsListPage from '@/components/partner/StatementsListPage';
 ---
 
 <Layout title="Prime Partner - Statements">
   <RootProvider client:only="react">
-    <StatementsListPage client:only="react" />
+    <ErrorBoundary client:only="react">
+      <StatementsListPage client:only="react" />    </ErrorBoundary>
   </RootProvider>
 </Layout>

@@ -79,7 +79,7 @@ export default function BookingsPage() {
       <div className="max-w-md mx-auto space-y-6">
         {/* Back Link */}
         <a href="/app" className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900">
-          ← Back to Home
+          {t('common.backToHome')}
         </a>
 
         {/* Header */}

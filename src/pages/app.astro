@@ -1,11 +1,13 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import RootProvider from '@/lib/providers/RootProvider';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import HomePage from '@/components/app/HomePage';
 ---
 
 <Layout title="Prime - Home">
   <RootProvider client:only="react">
-    <HomePage client:only="react" />
+    <ErrorBoundary client:only="react">
+      <HomePage client:only="react" />    </ErrorBoundary>
   </RootProvider>
 </Layout>
