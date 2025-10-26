@@ -7,12 +7,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { format } from 'date-fns';
-import { Calendar, MapPin, Users } from 'lucide-react';
+import { Calendar, Users } from 'lucide-react';
 import type { Booking } from '@/types/domain';
 
 function BookingCard({ booking }: { booking: Booking }) {
   const { t } = useTranslation();
-  const isPast = new Date(booking.date) < new Date();
 
   const statusColors = {
     confirmed: 'bg-green-100 text-green-800',
@@ -61,7 +60,7 @@ export default function BookingsPage() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['bookings', 'ORG_001'],
     queryFn: () => listBookings('ORG_001'),
   });

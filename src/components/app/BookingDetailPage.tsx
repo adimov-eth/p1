@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { getBookingDetail } from '@/mocks/service';
 import { mockState } from '@/mocks/state';
-import { useTranslation } from '@/lib/i18n/context';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,8 +25,6 @@ interface Props {
 }
 
 export default function BookingDetailPage({ bookingId }: Props) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [guestName, setGuestName] = useState('');
   const [guestEmail, setGuestEmail] = useState('');
