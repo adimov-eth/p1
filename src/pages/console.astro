@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import RootProvider from '@/lib/providers/RootProvider';
+import DashboardPage from '@/components/console/DashboardPage';
+---
+
+<Layout title="Prime Concierge - Dashboard">
+  <RootProvider client:only="react">
+    <DashboardPage client:only="react" />
+  </RootProvider>
+</Layout>

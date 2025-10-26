@@ -1,0 +1,13 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import RootProvider from '@/lib/providers/RootProvider';
+import StatementDetailPage from '@/components/partner/StatementDetailPage';
+
+const { id } = Astro.params;
+---
+
+<Layout title="Prime Partner - Statement Detail">
+  <RootProvider client:only="react">
+    <StatementDetailPage statementId={id} client:only="react" />
+  </RootProvider>
+</Layout>

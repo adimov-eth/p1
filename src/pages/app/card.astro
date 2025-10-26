@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import RootProvider from '@/lib/providers/RootProvider';
+import CardPage from '@/components/app/CardPage';
+---
+
+<Layout title="Prime - Digital Card">
+  <RootProvider client:only="react">
+    <CardPage client:only="react" />
+  </RootProvider>
+</Layout>

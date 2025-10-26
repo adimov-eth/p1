@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import RootProvider from '@/lib/providers/RootProvider';
+import StatementsListPage from '@/components/partner/StatementsListPage';
+---
+
+<Layout title="Prime Partner - Statements">
+  <RootProvider client:only="react">
+    <StatementsListPage client:only="react" />
+  </RootProvider>
+</Layout>

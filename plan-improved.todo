@@ -1,0 +1,508 @@
+# Prime MVP Demo — Improved Execution Plan
+# Based on critical review of Codex's original plan
+# See REVIEW.md for detailed rationale
+
+## Phase 0: Prerequisites & Validation (Day 1)
+
+### Dependencies
+- [ ] Install data/form libraries: `bun add @tanstack/react-query react-hook-form zod zustand react-router-dom`
+- [ ] Install type definitions: `bun add -d @types/react-router-dom`
+- [ ] Install ALL shadcn components in one go:
+  ```bash
+  bunx shadcn@latest add button card badge input label textarea select checkbox \
+    dialog drawer dropdown-menu popover tooltip tabs separator skeleton toast \
+    table accordion avatar progress calendar form command sonner
+  ```
+- [ ] Verify dev server: `bun dev` works and shows current landing page
+- [ ] Create `.env` with `VITE_USE_MOCKS=true`
+
+### Architecture Decisions
+- [ ] Confirm: React Router within Astro islands (not Astro dynamic routes)
+- [ ] Confirm: Observable mock state singleton pattern
+- [ ] Confirm: Custom i18n (no library, simple Context provider)
+- [ ] Confirm: Error boundaries per area (App/Console/Partner)
+
+### Documentation
+- [ ] Document seed data IDs in `src/mocks/seed.ts` header
+- [ ] Create `DEMO.md` with explicit click-through script
+- [ ] Note state reset procedure for presentations
+
+## Phase 1: Foundation (Days 2-3)
+
+### Types
+- [ ] Create `src/types/domain.ts` — core entities from spec/Types.md
+- [ ] Create `src/types/api.ts` — request/response types from spec/APIs.md
+- [ ] Create `src/types/forms.ts` — Zod schemas for form validation
+- [ ] Create `src/types/ui.ts` — component prop types
+- [ ] Create `src/types/index.ts` — clean re-exports
+
+### Mock State Singleton
+- [ ] Create `src/mocks/state.ts` with observable pattern:
+  ```typescript
+  - mockState.data (seed data)
+  - mockState.subscribe(listener)
+  - mockState.notify()
+  - mockState.mutate(fn)
+  - mockState.reset()
+  ```
+- [ ] Implement seed data from spec (org, users, courses, bookings, statements)
+- [ ] Add deterministic IDs: `ORG_001`, `USER_001`, `BOOKING_001`, etc.
+- [ ] Document seed IDs in file header for demo reference
+
+### Mock Service Layer
+- [ ] Create `src/mocks/service.ts` implementing spec/APIs.md
+- [ ] Start with LIFF endpoints only (for vertical slice):
+  - `getAppHome(): Promise<AppHomeResponse>`
+  - `listBookings(status): Promise<ListBookingsResponse>`
+  - `getBooking(id): Promise<Booking>`
+  - `postCheckin(bookingId, players, method): Promise<UsageEvent>`
+- [ ] Add 250-600ms artificial delays using `src/mocks/util.ts`
+- [ ] Create `src/mocks/util.ts` with `delay()`, `pick()`, `seedRandom()`
+
+### Service Abstraction
+- [ ] Create `src/lib/services/index.ts` with environment switch:
+  ```typescript
+  const useMocks = import.meta.env.VITE_USE_MOCKS === 'true';
+  export const api = useMocks ? mockService : apiClient;
+  ```
+- [ ] Stub `src/lib/services/apiClient.ts` (not implemented for demo)
+
+### i18n Foundation
+- [ ] Create `src/lib/i18n/context.tsx` with LocaleContext provider
+- [ ] Create `src/lib/i18n/useTranslation.ts` with `t(key, params?)` hook
+- [ ] Create `src/locales/en.json` copying from `spec/i18n/en.sample.json`
+- [ ] Add dev-mode logging for missing i18n keys
+- [ ] Wrap app with LocaleProvider (default: 'en')
+
+### Global Providers
+- [ ] Create `src/lib/providers/QueryProvider.tsx`:
+  ```typescript
+  - QueryClientProvider with default config
+  - staleTime: 5 minutes for demo
+  - retry: false (for demo)
+  - useMockStateSync() hook (invalidate on mock state change)
+  ```
+- [ ] Create `src/lib/providers/RootProvider.tsx`:
+  ```typescript
+  - Combines QueryProvider + LocaleProvider
+  - Add Toaster component (sonner)
+  ```
+
+## Phase 2: Vertical Slice Validation (Day 4)
+
+### Purpose
+Test entire stack (Astro → React Router → TanStack Query → Mock Service → State) before building everything.
+
+### LIFF Shell
+- [ ] Create `src/pages/app.astro`:
+  ```astro
+  - Minimal layout (no header yet)
+  - <RootProvider><AppRouter client:only="react" /></RootProvider>
+  ```
+- [ ] Create `src/components/routers/AppRouter.tsx`:
+  ```typescript
+  - React Router setup
+  - Routes: / → HomePage, /card → CardPage, /bookings → BookingsPage
+  - 404 fallback
+  ```
+
+### Home Page (Complete Vertical Slice)
+- [ ] Create `src/components/app/HomePage.tsx`
+- [ ] Implement useQuery('appHome', api.getAppHome)
+- [ ] Display usage summary: rounds remaining, next booking
+- [ ] Add loading state (Skeleton components)
+- [ ] Add error state (error boundary or inline)
+- [ ] Add empty state (no upcoming booking)
+
+### Verification
+- [ ] Navigate to `/app` in browser
+- [ ] Verify seed data renders correctly
+- [ ] Check Network tab: no real API calls
+- [ ] Check console: no TypeScript errors
+- [ ] Test mock state observable: mutate state, verify UI updates
+- [ ] **GATE:** If this works, architecture is validated. Proceed.
+
+## Phase 3: Complete LIFF Screens (Days 5-7)
+
+### Digital Card Page
+- [ ] Create `src/components/app/CardPage.tsx`
+- [ ] Display QR code (placeholder or generated from booking ID)
+- [ ] Add "Simulate Check-in" button
+- [ ] Implement useMutation(api.postCheckin):
+  - On success: toast notification
+  - Invalidate 'appHome' query (rounds update)
+  - Show updated rounds remaining
+- [ ] Add loading state during mutation
+- [ ] Add error handling (e.g., no active booking)
+
+### Bookings List Page
+- [ ] Create `src/components/app/BookingsPage.tsx`
+- [ ] Implement tabs: Upcoming / Past
+- [ ] Use useQuery('bookings', () => api.listBookings(status))
+- [ ] Display table: course, date, time, players count, status
+- [ ] Make rows clickable (navigate to detail)
+- [ ] Add loading skeletons
+- [ ] Add empty states per tab
+
+### Booking Detail Page
+- [ ] Create `src/components/app/BookingDetailPage.tsx`
+- [ ] Use useQuery('booking', () => api.getBooking(id)) with URL param
+- [ ] Display full booking details: course, date/time, all players
+- [ ] Add "Invite Guest" button → opens Dialog
+- [ ] Create `src/components/app/InviteGuestDialog.tsx`:
+  - Form: guest name (new) or select existing guest (Command/Select)
+  - Submit: useMutation(api.sendInvitation)
+  - On success: toast, close dialog
+  - Zod schema for validation
+  - React Hook Form integration
+- [ ] Add loading/error states
+
+### LIFF Layout Refinement
+- [ ] Create `src/components/layouts/AppLayout.tsx`:
+  - Header with "Prime" logo
+  - Back button (when applicable)
+  - Mobile-first responsive
+- [ ] Update AppRouter to use layout wrapper
+
+## Phase 4: Concierge Console (Days 8-10)
+
+### Console Shell
+- [ ] Create `src/pages/console.astro`:
+  ```astro
+  - <RootProvider><ConsoleRouter client:only="react" /></RootProvider>
+  ```
+- [ ] Create `src/components/routers/ConsoleRouter.tsx`:
+  - Routes: / → Dashboard, /bookings → BookingsPage, /members/:id → Profile, /courses → CoursesPage
+
+### Extend Mock Service
+- [ ] Add console endpoints to `src/mocks/service.ts`:
+  - `getQueueItems(): Promise<QueueItem[]>`
+  - `getSLAMetrics(): Promise<SLAMetrics>`
+  - `createBooking(data): Promise<Booking>`
+  - `cancelBooking(id): Promise<Booking>`
+  - `getMemberProfile(id): Promise<MemberProfile>`
+  - `listCourses(): Promise<Course[]>`
+
+### Dashboard Page
+- [ ] Create `src/components/console/DashboardPage.tsx`
+- [ ] SLA cards:
+  - ACK time compliance (mocked: 97%)
+  - Resolution time (mocked: 93%)
+  - Check-in success rate (mocked: 98%)
+  - Use Card + Progress components
+- [ ] Queue table:
+  - Recent requests (mocked: 3-5 items)
+  - Columns: channel, received, status, assignee
+  - Use Table component
+
+### Bookings Management Page
+- [ ] Create `src/components/console/BookingsPage.tsx`
+- [ ] Data table: all bookings (upcoming + past)
+- [ ] Columns: org, course, date, time, players, status, actions
+- [ ] Add "Create Booking" button → Dialog
+- [ ] Create `src/components/console/CreateBookingDialog.tsx`:
+  - Form fields: org (select), course (select), date (calendar), time (input), players (array)
+  - Zod schema validation
+  - React Hook Form
+  - useMutation(api.createBooking)
+  - On success: invalidate queries, close dialog, toast
+- [ ] Dropdown actions per row: Cancel (if applicable), Complete
+- [ ] Implement cancel mutation with 48h window logic
+  - Within 48h: status=cancelled, usage=forfeited
+  - Outside 48h: status=cancelled, usage=restored
+
+### Member Profile Page
+- [ ] Create `src/components/console/MemberProfilePage.tsx`
+- [ ] Tabs: Usage / Bookings / Notes
+- [ ] Usage tab:
+  - Summary card: rounds used/remaining
+  - Usage history table: date, course, players, status
+- [ ] Bookings tab:
+  - Table: upcoming and past bookings
+- [ ] Notes tab:
+  - Simple textarea + "Add Note" button
+  - Notes list (read-only in demo, no persistence needed)
+
+### Courses Page
+- [ ] Create `src/components/console/CoursesPage.tsx`
+- [ ] Table: course name, region, status
+- [ ] Click row → opens Dialog with policy details:
+  - Blackout dates
+  - Guest limits (per member, max group)
+  - Cancellation policy
+  - Notes
+- [ ] Load seed from spec/Courses.md
+
+### Console Layout
+- [ ] Create `src/components/layouts/ConsoleLayout.tsx`:
+  - Header with navigation: Dashboard / Bookings / Members / Courses
+  - User info (mocked: "Concierge Agent")
+  - Responsive sidebar on desktop, bottom nav on mobile
+
+## Phase 5: Partner Portal (Day 11)
+
+### Partner Shell
+- [ ] Create `src/pages/partner.astro`:
+  ```astro
+  - <RootProvider><PartnerRouter client:only="react" /></RootProvider>
+  ```
+- [ ] Create `src/components/routers/PartnerRouter.tsx`:
+  - Routes: / → StatementsPage, /:id → StatementDetailPage
+
+### Extend Mock Service
+- [ ] Add partner endpoints to `src/mocks/service.ts`:
+  - `listStatements(month?): Promise<Statement[]>`
+  - `getStatement(id): Promise<Statement>`
+  - `verifyStatement(id, lines): Promise<Statement>`
+  - `disputeStatement(id, reason, lines): Promise<Statement>`
+
+### Statements List Page
+- [ ] Create `src/components/partner/StatementsPage.tsx`
+- [ ] Table: month, course, total players, status (badge), actions
+- [ ] Statuses: draft, sent, verified, disputed, paid (different badge colors)
+- [ ] Click row → navigate to detail
+
+### Statement Detail Page
+- [ ] Create `src/components/partner/StatementDetailPage.tsx`
+- [ ] Statement header: month, course, totals
+- [ ] Lines table: date, booking ID, players count, confirmed checkbox
+- [ ] Actions:
+  - "Verify" button → useMutation(api.verifyStatement)
+  - "Dispute" button → opens Dialog
+- [ ] Create `src/components/partner/DisputeDialog.tsx`:
+  - Textarea: reason
+  - Checklist: select disputed lines
+  - Submit: useMutation(api.disputeStatement)
+  - On success: toast, close, invalidate
+
+### Partner Layout
+- [ ] Create `src/components/layouts/PartnerLayout.tsx`:
+  - Minimal header: "Prime Partner Portal" + course name (from auth context, mocked)
+  - Back button
+
+## Phase 6: Public & E-Sign (Day 12)
+
+### RSVP Page
+- [ ] Create `src/pages/rsvp.astro` (standalone, no router)
+- [ ] Simple form:
+  - Fields: name, email, company, phone (optional), message (optional)
+  - Zod schema validation
+  - React Hook Form
+  - onSubmit: just show toast (no backend)
+- [ ] Use Card component for layout
+- [ ] Mobile responsive
+
+### E-Sign Widget
+- [ ] Create `src/pages/esign/[orgId].astro`
+- [ ] Create `src/components/esign/ESignWidget.tsx`
+- [ ] Display:
+  - Organization name (load from mock state using orgId param)
+  - Key terms summary (from spec):
+    - Annual fee
+    - 144 rounds/year
+    - 2 designated users
+    - 48h cancellation policy
+  - Consent checkbox: "I agree to the terms and conditions"
+  - Form fields: signer name, title, email
+  - Signature pad (use canvas or simple typed signature)
+- [ ] Implement useMutation(api.completeESign):
+  - Payload: orgId, signer info, signature hash (mock: just timestamp)
+  - On success: update org status to `invoiced_ready`, show success message
+- [ ] Success state: "Agreement signed successfully. Invoice will be sent shortly."
+
+### Extend Mock Service
+- [ ] Add e-sign endpoint to `src/mocks/service.ts`:
+  - `completeESign(orgId, signerInfo): Promise<{ agreementId, status }>`
+  - Mutate org status in mock state
+
+## Phase 7: Polish & Quality (Day 13)
+
+### Loading States
+- [ ] Audit all useQuery calls: ensure Skeleton shown during `isLoading`
+- [ ] Consistent skeleton patterns:
+  - Card skeleton for card-based layouts
+  - Table skeleton for tables
+  - Text skeleton for headings/paragraphs
+
+### Empty States
+- [ ] Create `src/components/ui/EmptyState.tsx` component:
+  - Icon (lucide)
+  - Heading
+  - Description
+  - Optional CTA button
+- [ ] Add empty states:
+  - No upcoming bookings
+  - No past bookings
+  - No usage history
+  - No statements
+  - Empty queue
+
+### Error Handling
+- [ ] Create error boundaries:
+  - `src/components/ErrorBoundary.tsx` (generic)
+  - Wrap each router (App, Console, Partner)
+- [ ] TanStack Query error handling:
+  - Global onError handler in QueryClient config
+  - Show toast on mutation errors
+  - Inline error display on query errors (where appropriate)
+- [ ] Add retry button for failed queries
+
+### Toast Notifications
+- [ ] Ensure Toaster (sonner) is in RootProvider
+- [ ] Add toast for all mutations:
+  - Success: "Booking created", "Check-in successful", "Statement verified"
+  - Error: "Failed to create booking", "Check-in failed"
+- [ ] Consistent toast pattern: position, duration, styling
+
+### Mobile Responsive
+- [ ] Test all screens on mobile viewport (375px)
+- [ ] Check:
+  - Navigation works (bottom nav on mobile)
+  - Tables scroll horizontally if needed
+  - Dialogs use Drawer on mobile (shadcn handles this)
+  - Forms are usable (inputs not too small)
+  - Spacing is comfortable (touch targets ≥44px)
+
+### Keyboard Navigation
+- [ ] Tab through all forms: order makes sense
+- [ ] Dialogs:
+  - Escape closes
+  - Focus trap works
+  - First input auto-focused
+- [ ] Tables: arrow keys for navigation (if applicable)
+- [ ] Buttons: Enter/Space trigger
+
+### i18n Completeness
+- [ ] Audit all hardcoded strings: replace with `t()` calls
+- [ ] Check `src/locales/en.json` has all keys
+- [ ] Verify missing key logging works (intentionally remove a key, check console)
+- [ ] Optional: add language switcher UI (stub, just shows EN for now)
+
+### TypeScript Strictness
+- [ ] Run `bun astro check`: fix all errors
+- [ ] Enable `noUncheckedIndexedAccess` in tsconfig if not already
+- [ ] Ensure no `any` types in production code (mocks can be lenient)
+- [ ] Check all DTOs match spec/Types.md exactly
+
+## Phase 8: Demo Preparation (Day 14)
+
+### Demo Script
+- [ ] Write step-by-step demo flow in `DEMO.md`:
+  ```
+  1. Open /esign/ORG_001
+  2. Fill form, sign, submit → shows success
+  3. Navigate to /console
+  4. Show SLA metrics on dashboard
+  5. Go to /console/bookings, create booking for ORG_001
+  6. Navigate to /app (as designated user)
+  7. View booking in /app/bookings
+  8. Go to /app/card, simulate check-in
+  9. Return to /app, show rounds decremented
+  10. Navigate to /partner
+  11. View statement, verify
+  12. Return to /console, show updated metrics
+  ```
+- [ ] Document which IDs to use (org, user, course)
+- [ ] Note total demo duration target (5-10 minutes)
+
+### State Reset Utility
+- [ ] Create `src/mocks/state.ts` reset function:
+  ```typescript
+  export function resetMockState() {
+    Object.assign(mockState.data, createSeedData());
+    mockState.notify();
+  }
+  ```
+- [ ] Add dev-only reset button to console dashboard (top-right corner)
+- [ ] Optional: bind to keyboard shortcut (Cmd+Shift+R)
+
+### Seed Data Verification
+- [ ] Double-check seed data matches demo script:
+  - ORG_001 exists and status is `prospect` (for e-sign demo)
+  - Two designated users exist
+  - Courses seeded (Alpine, Nikanti, Siam Country Club)
+  - At least 2 upcoming bookings, 3 past bookings
+  - Statement for current month exists with 3-6 lines
+- [ ] Verify IDs are deterministic and documented
+
+### Performance Check
+- [ ] Test in dev mode:
+  - Initial page load < 2.5s (Chrome DevTools Network throttling: Fast 3G)
+  - Page transitions feel instant (mock delays are reasonable)
+- [ ] Check bundle size: `bun build`, inspect dist/
+  - Target: < 500KB gzipped (for demo, not critical)
+
+### Rehearsal
+- [ ] Walk through demo script end-to-end
+- [ ] Check for rough edges:
+  - Any UI glitches?
+  - Animations smooth?
+  - Error states never shown (good seed data)
+- [ ] Verify acceptance criteria from PRD:
+  - ✅ A0: E-sign moves org to invoiced_ready
+  - ✅ A1: Admin can assign users (note shown, not implemented in demo)
+  - ✅ A2: Concierge creates booking, member sees it
+  - ✅ A3: Check-in deducts rounds
+  - ✅ A4: Cancellation logic respects 48h window
+  - ✅ A5: Partner can verify statement
+  - ✅ A6: SLA metrics shown in console
+  - ✅ A7: All strings use i18n keys
+
+### Documentation
+- [ ] Update CLAUDE.md with demo-specific notes
+- [ ] Ensure README.md has:
+  - Quick start instructions
+  - Environment variables
+  - Link to DEMO.md
+- [ ] Optional: Add screenshots to docs/
+
+## Final Checklist
+
+### Code Quality
+- [ ] No TypeScript errors (`bun astro check`)
+- [ ] No console errors in browser (dev mode)
+- [ ] All DTOs match spec/Types.md
+- [ ] All API contracts match spec/APIs.md
+- [ ] Loading/empty/error states on every screen
+
+### User Experience
+- [ ] Mobile responsive (test 375px viewport)
+- [ ] Keyboard accessible (tab order, focus, escape)
+- [ ] Toast notifications on all mutations
+- [ ] Professional visual consistency (shadcn theme)
+
+### Demo Readiness
+- [ ] DEMO.md script written and rehearsed
+- [ ] State reset works
+- [ ] Seed data deterministic
+- [ ] Performance acceptable (< 2.5s load on throttled)
+
+### Documentation
+- [ ] CLAUDE.md updated
+- [ ] README.md has quick start
+- [ ] Seed data IDs documented
+- [ ] All acceptance criteria verified
+
+---
+
+## Estimated Timeline
+
+- Phase 0 (Prerequisites): 1 day
+- Phase 1 (Foundation): 2 days
+- Phase 2 (Vertical Slice): 1 day
+- Phase 3 (LIFF Screens): 3 days
+- Phase 4 (Console): 3 days
+- Phase 5 (Partner): 1 day
+- Phase 6 (Public/E-Sign): 1 day
+- Phase 7 (Polish): 1 day
+- Phase 8 (Demo Prep): 1 day
+
+**Total: 14 days for investor-ready demo**
+
+## Notes
+
+- Each phase builds on previous (no skipping)
+- Phase 2 is GATE: validates architecture before going wide
+- Phases 3-6 can partially overlap if multiple devs
+- Phase 7 is non-negotiable (quality matters for investors)
+- Phase 8 is where demo confidence comes from

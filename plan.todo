@@ -1,3 +1,16 @@
+# DEPRECATED — Use todo.plan Instead
+
+This was Codex's original implementation plan. It has been superseded by the improved plan.
+
+**Use these files instead:**
+
+- **[todo.plan](./todo.plan)** — Master execution plan (canonical)
+- **[plan-improved.todo](./plan-improved.todo)** — Detailed checklist with substeps
+
+---
+
+## Original Plan (Preserved for Reference)
+
 Prime MVP Demo — Execution Plan
 
 0. Setup
@@ -46,3 +59,17 @@ Prime MVP Demo — Execution Plan
 10. Demo Script & Docs
 - [ ] Prepare click-through demo script
 - [ ] Re-read `spec/ReadingOrder.md` and verify cross-links
+
+---
+
+**Note:** This plan was the starting point. The improved plans address:
+
+- Missing dependencies (TanStack Query, React Router, etc.)
+- Routing architecture (React Router in Astro islands)
+- Observable mock state pattern (auto UI updates)
+- Vertical slice gate (validate architecture early)
+- Explicit i18n implementation
+- Error handling strategy
+- Realistic 14-day timeline with polish and demo prep
+
+See [REVIEW.md](./REVIEW.md) for detailed comparison.

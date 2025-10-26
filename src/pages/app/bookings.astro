@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import RootProvider from '@/lib/providers/RootProvider';
+import BookingsPage from '@/components/app/BookingsPage';
+---
+
+<Layout title="Prime - My Bookings">
+  <RootProvider client:only="react">
+    <BookingsPage client:only="react" />
+  </RootProvider>
+</Layout>
