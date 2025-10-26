@@ -7,6 +7,7 @@ import type {
   UsageEvent,
   Statement,
   Invitation,
+  BookingRequest,
 } from '@/types/domain';
 
 // Helper for dynamic dates (keeps bookings "upcoming" regardless of when demo runs)
@@ -31,6 +32,7 @@ export interface MockData {
   usageEvents: UsageEvent[];
   statements: Statement[];
   invitations: Invitation[];
+  bookingRequests: BookingRequest[];
 }
 
 export function createSeedData(): MockData {
@@ -178,6 +180,27 @@ export function createSeedData(): MockData {
         sentAt: new Date().toISOString(),
         channel: 'line',
         status: 'accepted',
+      },
+    ],
+
+    bookingRequests: [
+      {
+        id: 'REQ_001',
+        orgId: 'ORG_001',
+        userId: 'USER_001',
+        userName: 'John Smith',
+        message: 'Want to play Alpine this Saturday morning, 2 players',
+        requestedAt: new Date(Date.now() - 2 * 60 * 1000).toISOString(), // 2 min ago
+        status: 'pending',
+      },
+      {
+        id: 'REQ_002',
+        orgId: 'ORG_001',
+        userId: 'USER_002',
+        userName: 'Jane Doe',
+        message: 'Siam Country Club next Friday afternoon?',
+        requestedAt: new Date(Date.now() - 5 * 60 * 1000).toISOString(), // 5 min ago
+        status: 'pending',
       },
     ],
   };

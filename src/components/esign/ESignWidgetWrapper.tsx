@@ -1,13 +1,17 @@
 import React from 'react';
 import RootProvider from '@/lib/providers/RootProvider';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import ConsoleRouter from './ConsoleRouter';
+import ESignWidget from './ESignWidget';
 
-export default function ConsolePage() {
+interface ESignWidgetWrapperProps {
+  orgId: string;
+}
+
+export default function ESignWidgetWrapper({ orgId }: ESignWidgetWrapperProps) {
   return (
     <RootProvider>
       <ErrorBoundary>
-        <ConsoleRouter />
+        <ESignWidget orgId={orgId} />
       </ErrorBoundary>
     </RootProvider>
   );

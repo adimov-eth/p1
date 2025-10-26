@@ -1,0 +1,19 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ESignWidgetWrapper from '@/components/esign/ESignWidgetWrapper';
+
+export function getStaticPaths() {
+  return [
+    { params: { orgId: 'ORG_001' } },
+    { params: { orgId: 'ORG_002' } },
+    { params: { orgId: 'ORG_003' } },
+  ];
+}
+
+const { orgId } = Astro.params;
+if (!orgId) throw new Error('Missing organization ID');
+---
+
+<Layout title="Prime - E-Sign Agreement">
+  <ESignWidgetWrapper orgId={orgId} client:only="react" />
+</Layout>

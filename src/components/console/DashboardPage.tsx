@@ -2,7 +2,10 @@ import React from 'react';
 import { useTranslation } from '@/lib/i18n/context';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, CheckCircle, Star, Calendar } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Clock, CheckCircle, Star, Calendar, Plus } from 'lucide-react';
+import { mockState } from '@/mocks/state';
+import { useNavigate } from 'react-router-dom';
 
 // Mock SLA data
 const slaMetrics = {
@@ -11,25 +14,12 @@ const slaMetrics = {
   satisfactionScore: '4.8/5.0',
 };
 
-const requestQueue = [
-  {
-    id: 'REQ_001',
-    orgName: 'Acme Corporation',
-    type: 'Booking Request',
-    priority: 'high',
-    createdAt: '2 hours ago',
-  },
-  {
-    id: 'REQ_002',
-    orgName: 'TechCorp Inc',
-    type: 'Cancellation',
-    priority: 'normal',
-    createdAt: '45 minutes ago',
-  },
-];
-
 export default function DashboardPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  // Get pending requests from mockState
+  const pendingRequests = mockState.data.bookingRequests.filter((r) => r.status === 'pending');
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
@@ -88,64 +78,119 @@ export default function DashboardPage() {
             <div className="flex justify-between items-center">
               <CardTitle className="flex items-center gap-2 text-slate-900">
                 <Calendar className="h-5 w-5 text-slate-700" />
-                {t('console.dashboard.queue.title')}
+                Booking Requests
               </CardTitle>
               <Badge className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-bold">
-                {requestQueue.length} {t('console.dashboard.queue.pending')}
+                {pendingRequests.length} pending
               </Badge>
             </div>
           </CardHeader>
           <CardContent className="pt-4">
             <div className="space-y-3">
-              {requestQueue.length > 0 ? (
-                requestQueue.map((req) => (
-                  <div
-                    key={req.id}
-                    className="flex items-center justify-between p-4 bg-white rounded-lg border-2 border-slate-200 hover:border-blue-400 hover:shadow-md transition-all"
-                  >
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <p className="font-bold text-lg text-slate-900">{req.orgName}</p>
-                        <Badge variant={req.priority === 'high' ? 'destructive' : 'outline'} className="font-semibold">
-                          {req.priority}
-                        </Badge>
-                      </div>
-                      <p className="text-sm font-medium text-slate-700 mt-1">{req.type}</p>
-                      <p className="text-xs text-slate-500 mt-1">{req.createdAt}</p>
-                    </div>
-                    <a
-                      href={`/console/requests/${req.id}`}
-                      className="text-sm text-blue-600 hover:text-blue-700 font-bold px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors"
+              {pendingRequests.length > 0 ? (
+                pendingRequests.map((req) => {
+                  const org = mockState.data.organizations.find((o) => o.id === req.orgId);
+                  const timeAgo = getTimeAgo(req.requestedAt);
+
+                  return (
+                    <div
+                      key={req.id}
+                      className="group relative flex items-center justify-between p-6 bg-gradient-to-r from-white to-slate-50 rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-200"
                     >
-                      View →
-                    </a>
-                  </div>
-                ))
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity" />
+
+                      <div className="relative flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <p className="font-bold text-xl text-slate-900">{req.userName}</p>
+                          <Badge variant="secondary" className="font-semibold text-xs px-3 py-1">
+                            {org?.name || 'Unknown Org'}
+                          </Badge>
+                        </div>
+                        <p className="text-sm font-medium text-slate-600 mt-2 pl-1">
+                          <span className="text-slate-400">"</span>
+                          <span className="italic">{req.message}</span>
+                          <span className="text-slate-400">"</span>
+                        </p>
+                        <p className="text-xs text-slate-400 mt-2 pl-1">{timeAgo}</p>
+                      </div>
+
+                      <Button
+                        onClick={() => navigate(`/create-booking?requestId=${req.id}`)}
+                        size="default"
+                        className="relative ml-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg transition-all"
+                      >
+                        Create Booking
+                      </Button>
+                    </div>
+                  );
+                })
               ) : (
-                <p className="text-center text-slate-500 py-8">{t('console.dashboard.queue.empty')}</p>
+                <p className="text-center text-slate-500 py-8">No pending requests</p>
               )}
             </div>
           </CardContent>
         </Card>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-4">
-          <a
-            href="/console/bookings"
-            className="block p-6 bg-white rounded-xl border-2 border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all text-center group"
+        <div className="grid grid-cols-3 gap-6">
+          <button
+            onClick={() => navigate('/create-booking')}
+            className="group relative overflow-hidden p-8 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white rounded-2xl border-0 shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 text-center"
           >
-            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">📅</div>
-            <div className="font-semibold text-slate-900">{t('console.dashboard.actions.manageBookings')}</div>
-          </a>
-          <a
-            href="/console/members"
-            className="block p-6 bg-white rounded-xl border-2 border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all text-center group"
+            <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative">
+              <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Plus className="h-12 w-12 mx-auto" strokeWidth={2.5} />
+              </div>
+              <div className="font-bold text-lg">Create Booking</div>
+              <div className="text-xs text-blue-100 mt-1">New golf reservation</div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {}}
+            className="group relative overflow-hidden p-8 bg-white rounded-2xl border-2 border-slate-200 hover:border-blue-300 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 text-center"
           >
-            <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">👥</div>
-            <div className="font-semibold text-slate-900">{t('console.dashboard.actions.memberProfiles')}</div>
-          </a>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative">
+              <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Calendar className="h-12 w-12 mx-auto text-slate-700" strokeWidth={2} />
+              </div>
+              <div className="font-bold text-lg text-slate-900">Manage Bookings</div>
+              <div className="text-xs text-slate-500 mt-1">View & edit reservations</div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => {}}
+            className="group relative overflow-hidden p-8 bg-white rounded-2xl border-2 border-slate-200 hover:border-blue-300 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 text-center"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative">
+              <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                👥
+              </div>
+              <div className="font-bold text-lg text-slate-900">Member Profiles</div>
+              <div className="text-xs text-slate-500 mt-1">Member management</div>
+            </div>
+          </button>
         </div>
       </div>
     </div>
   );
+}
+
+// Helper to format time ago
+function getTimeAgo(isoString: string): string {
+  const date = new Date(isoString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins} min ago`;
+  const diffHours = Math.floor(diffMins / 60);
+  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+  const diffDays = Math.floor(diffHours / 24);
+  return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
 }

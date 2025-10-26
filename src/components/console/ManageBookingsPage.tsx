@@ -1,0 +1,260 @@
+import React from 'react';
+import { mockState } from '@/mocks/state';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Search, Filter, Download, Plus, Calendar, MapPin, Users, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+export default function ManageBookingsPage() {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  // Get all bookings sorted by date (newest first)
+  const allBookings = React.useMemo(() => {
+    return mockState.data.bookings
+      .map((booking) => {
+        const org = mockState.data.organizations.find((o) => o.id === booking.orgId);
+        const course = mockState.data.courses.find((c) => c.id === booking.courseId);
+        const primaryPlayer = booking.players.find((p) => p.type === 'member');
+
+        return {
+          ...booking,
+          orgName: org?.name || 'Unknown Org',
+          courseName: course?.name || booking.courseName,
+          courseRegion: course?.region,
+          primaryPlayerName: primaryPlayer?.name || 'Unknown',
+        };
+      })
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }, []);
+
+  // Filter bookings by search query
+  const filteredBookings = React.useMemo(() => {
+    if (!searchQuery.trim()) return allBookings;
+
+    const query = searchQuery.toLowerCase();
+    return allBookings.filter(
+      (b) =>
+        b.primaryPlayerName.toLowerCase().includes(query) ||
+        b.orgName.toLowerCase().includes(query) ||
+        (b.courseName?.toLowerCase() || '').includes(query) ||
+        b.id.toLowerCase().includes(query)
+    );
+  }, [allBookings, searchQuery]);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'confirmed':
+        return 'bg-green-100 text-green-800 border-green-300';
+      case 'completed':
+        return 'bg-blue-100 text-blue-800 border-blue-300';
+      case 'cancelled':
+        return 'bg-red-100 text-red-800 border-red-300';
+      default:
+        return 'bg-slate-100 text-slate-800 border-slate-300';
+    }
+  };
+
+  return (
+    <div className="p-6 space-y-6">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900">Manage Bookings</h1>
+          <p className="text-slate-600 mt-1">View and manage all golf course reservations</p>
+        </div>
+
+        <Button
+          onClick={() => navigate('/create-booking')}
+          className="bg-blue-600 hover:bg-blue-700"
+          size="lg"
+        >
+          <Plus className="mr-2 h-5 w-5" />
+          New Booking
+        </Button>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Total Bookings</p>
+                <p className="text-2xl font-bold text-slate-900">{allBookings.length}</p>
+              </div>
+              <Calendar className="h-8 w-8 text-blue-600" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Confirmed</p>
+                <p className="text-2xl font-bold text-green-600">
+                  {allBookings.filter((b) => b.status === 'confirmed').length}
+                </p>
+              </div>
+              <Clock className="h-8 w-8 text-green-600" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Completed</p>
+                <p className="text-2xl font-bold text-blue-600">
+                  {allBookings.filter((b) => b.status === 'completed').length}
+                </p>
+              </div>
+              <Users className="h-8 w-8 text-blue-600" />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Cancelled</p>
+                <p className="text-2xl font-bold text-red-600">
+                  {allBookings.filter((b) => b.status === 'cancelled').length}
+                </p>
+              </div>
+              <MapPin className="h-8 w-8 text-red-600" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Filters & Search */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+              <Input
+                placeholder="Search by member, organization, course, or booking ID..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+
+            <div className="flex gap-2">
+              <Button variant="outline" className="flex items-center gap-2">
+                <Filter className="h-4 w-4" />
+                Filter
+              </Button>
+              <Button variant="outline" className="flex items-center gap-2">
+                <Download className="h-4 w-4" />
+                Export
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Bookings Table */}
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            All Bookings ({filteredBookings.length}
+            {searchQuery && ` of ${allBookings.length}`})
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {filteredBookings.length === 0 ? (
+            <div className="text-center py-12">
+              <Calendar className="mx-auto h-12 w-12 text-slate-400" />
+              <h3 className="mt-4 text-lg font-semibold text-slate-900">
+                {searchQuery ? 'No bookings found' : 'No bookings yet'}
+              </h3>
+              <p className="text-slate-600 mt-2">
+                {searchQuery
+                  ? 'Try adjusting your search query'
+                  : 'Create your first booking to get started'}
+              </p>
+              {!searchQuery && (
+                <Button onClick={() => navigate('/create-booking')} className="mt-4">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Create Booking
+                </Button>
+              )}
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Booking ID</TableHead>
+                    <TableHead>Member</TableHead>
+                    <TableHead>Organization</TableHead>
+                    <TableHead>Course</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Time</TableHead>
+                    <TableHead>Players</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredBookings.map((booking) => (
+                    <TableRow key={booking.id} className="hover:bg-slate-50">
+                      <TableCell className="font-mono text-xs text-slate-600">
+                        {booking.id}
+                      </TableCell>
+                      <TableCell className="font-medium">{booking.primaryPlayerName}</TableCell>
+                      <TableCell>{booking.orgName}</TableCell>
+                      <TableCell>
+                        <div>
+                          <div className="font-medium">{booking.courseName}</div>
+                          {booking.courseRegion && (
+                            <div className="text-xs text-slate-500">{booking.courseRegion}</div>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        {new Date(booking.date).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })}
+                      </TableCell>
+                      <TableCell>{booking.teeTime}</TableCell>
+                      <TableCell>{booking.players.length}</TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className={getStatusColor(booking.status)}>
+                          {booking.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Button variant="ghost" size="sm">
+                          View
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

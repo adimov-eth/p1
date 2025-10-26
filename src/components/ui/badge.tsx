@@ -36,7 +36,7 @@ const Badge = React.forwardRef<
     <Comp
       data-slot="badge"
       className={cn(badgeVariants({ variant }), className)}
-      ref={ref}
+      ref={ref as any}
       {...props}
     />
   )

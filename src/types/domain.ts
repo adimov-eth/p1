@@ -99,3 +99,16 @@ export interface UsageEvent {
   status: 'pending' | 'deducted' | 'restored';
   source: 'checkin' | 'manual' | 'cancellation';
 }
+
+export interface BookingRequest {
+  id: string;
+  orgId: string;
+  userId: string; // Who made the request
+  userName: string;
+  message: string; // Natural language request
+  requestedAt: string; // ISO timestamp
+  status: 'pending' | 'completed' | 'cancelled';
+  handledBy?: string; // Concierge user ID
+  handledAt?: string; // ISO timestamp
+  bookingId?: string; // Created booking (if completed)
+}

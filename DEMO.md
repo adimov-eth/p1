@@ -16,20 +16,43 @@ bun dev
 
 **Pre-flight checks:**
 - [ ] Server running successfully
-- [ ] Browser tabs ready: `/p1/app`, `/p1/console`, `/p1/partner/statements`
-- [ ] State is fresh (click "Reset Demo State" if needed)
+- [ ] Browser tabs ready: `/app`, `/console`, `/partner`, `/esign/ORG_001`
+- [ ] State is fresh (click "Reset Demo State" on /app if needed)
 - [ ] Expected initial data:
-  - Rounds remaining: 143 (1 used from past booking)
+  - Rounds remaining: 144 (or 139-144 depending on demo state)
   - 2 upcoming bookings
-  - 1 past completed booking
+  - Organization status: prospect (before E-Sign) or invoiced (after E-Sign)
 
 ---
 
 ## Demo Flow
 
+### Act 0: E-Sign Widget - 1 minute
+
+**Navigate to:** `http://localhost:XXXX/esign/ORG_001`
+
+**Show:**
+- **Membership Agreement** with key terms visible
+- Annual quota: 144 rounds/year
+- Annual fee: ฿949,000
+- 48-hour cancellation policy
+
+**Action:** Fill and sign form
+- Name: Jane Doe
+- Title: CEO
+- Email: jane.doe@acme.com
+- Signature: Jane Doe
+- Check consent checkbox
+- Click "Sign Agreement"
+
+**Result:**
+- Success screen: "Agreement Signed!"
+- Status: **Invoiced** (green)
+- "This is how organizations onboard. Status changes from prospect to invoiced instantly."
+
 ### 1. Member Experience (LIFF Mini-App) - 2 minutes
 
-**Navigate to:** `http://localhost:XXXX/p1/app`
+**Navigate to:** `http://localhost:XXXX/app`
 
 **Show:**
 - **Usage Dashboard**: "143 rounds remaining, 1 used"
@@ -38,7 +61,7 @@ bun dev
 
 **Action:** Click "Digital Card"
 
-**Navigate to:** `/p1/app/card`
+**Navigate to:** `/app/card`
 
 **Show:**
 - **Gold membership card** with QR code
@@ -47,13 +70,13 @@ bun dev
 
 **Critical Demo:** Click "Simulate Check-in"
 - Toast notification appears
-- **Navigate back to `/p1/app`**
-- **Point out:** Rounds automatically decremented to 142
+- **Navigate back to `/app`**
+- **Point out:** Rounds automatically decremented (141 → 139 for 2-player booking)
 - "This demonstrates our observable state pattern - no manual cache management needed"
 
 ### 2. Concierge Console - 1.5 minutes
 
-**Navigate to:** `http://localhost:XXXX/p1/console`
+**Navigate to:** `http://localhost:XXXX/console`
 
 **Show:**
 - **SLA Metrics Cards**:
@@ -67,7 +90,7 @@ bun dev
 
 ### 3. Partner Portal - 1.5 minutes
 
-**Navigate to:** `http://localhost:XXXX/p1/partner/statements`
+**Navigate to:** `http://localhost:XXXX/partner`
 
 **Show:**
 - **Monthly Statements List**: Alpine Golf Club statement
@@ -76,7 +99,7 @@ bun dev
 
 **Action:** Click on the statement
 
-**Navigate to:** `/p1/partner/statements/STMT_001`
+**Navigate to:** `/partner/statements/STMT_001`
 
 **Show:**
 - Statement details with line items
@@ -101,13 +124,13 @@ This pattern scales to real backend. Replace mock functions with API calls - arc
 
 ## Acceptance Criteria Demonstrated
 
-✅ **A0**: E-sign widget (not shown - out of scope for quick demo)
+✅ **A0**: E-sign widget completes → org status = invoiced ✓ **SHOWN IN ACT 0**
 ✅ **A2**: Concierge creates booking → member sees it (implied by existing bookings)
-✅ **A3**: Check-in → rounds decrement **immediately** ✓
+✅ **A3**: Check-in → rounds decrement **immediately** ✓ **SHOWN IN ACT 1**
 ✅ **A4**: Cancellation logic (not shown - time constraint)
-✅ **A5**: Partner statement verify → status updates **instantly** ✓
-✅ **A6**: Console shows SLA metrics ✓
-✅ **A7**: All text uses i18n keys (not visible but implemented)
+✅ **A5**: Partner statement verify → status updates **instantly** ✓ **SHOWN IN ACT 3**
+✅ **A6**: Console shows SLA metrics ✓ **SHOWN IN ACT 2**
+⚠️ **A7**: All text uses i18n keys (E-Sign widget needs audit, rest implemented)
 
 ---
 
@@ -164,11 +187,11 @@ mockState.reset();
 
 ## What NOT to Show
 
-- Bookings index page (works but not polished for demo)
-- E-sign widget (not implemented)
-- Member profiles (not implemented)
+- Bookings index page (works but not critical for demo)
+- Member profiles detail (not implemented)
 - Public RSVP form (not implemented)
 - Error states (works but not interesting for demo)
+- i18n language switching (implemented but not polished for demo)
 
 Focus on the happy path that demonstrates **product vision** and **technical architecture**.
 
