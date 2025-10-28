@@ -57,9 +57,9 @@ export default function StatementsPage() {
       case 'disputed':
         return 'bg-red-100 text-red-800 border-red-300';
       case 'draft':
-        return 'bg-slate-100 text-slate-800 border-slate-300';
+        return 'bg-slate-800/50 text-slate-300 border-slate-700';
       default:
-        return 'bg-slate-100 text-slate-800 border-slate-300';
+        return 'bg-slate-800/50 text-slate-300 border-slate-700';
     }
   };
 
@@ -78,8 +78,8 @@ export default function StatementsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Statements</h1>
-          <p className="text-slate-600 mt-1">Monthly billing statements from golf courses</p>
+          <h1 className="text-3xl font-bold text-slate-100">Statements</h1>
+          <p className="text-slate-400 mt-1">Monthly billing statements from golf courses</p>
         </div>
 
         <Button
@@ -97,23 +97,23 @@ export default function StatementsPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Total Statements</p>
-                <p className="text-2xl font-bold text-slate-900">{allStatements.length}</p>
+                <p className="text-sm text-slate-400">Total Statements</p>
+                <p className="text-2xl font-bold text-slate-100">{allStatements.length}</p>
               </div>
               <FileText className="h-8 w-8 text-blue-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Pending Review</p>
+                <p className="text-sm text-slate-400">Pending Review</p>
                 <p className="text-2xl font-bold text-amber-600">{sentCount}</p>
               </div>
               <Calendar className="h-8 w-8 text-amber-600" />
@@ -121,11 +121,11 @@ export default function StatementsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Verified</p>
+                <p className="text-sm text-slate-400">Verified</p>
                 <p className="text-2xl font-bold text-green-600">{verifiedCount}</p>
               </div>
               <Building2 className="h-8 w-8 text-green-600" />
@@ -133,11 +133,11 @@ export default function StatementsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Paid</p>
+                <p className="text-sm text-slate-400">Paid</p>
                 <p className="text-2xl font-bold text-blue-600">{paidCount}</p>
               </div>
               <DollarSign className="h-8 w-8 text-blue-600" />
@@ -147,7 +147,7 @@ export default function StatementsPage() {
       </div>
 
       {/* Filters & Search */}
-      <Card>
+      <Card className="bg-slate-800/50 border-slate-700">
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
@@ -175,9 +175,9 @@ export default function StatementsPage() {
       </Card>
 
       {/* Statements Table */}
-      <Card>
+      <Card className="bg-slate-800/50 border-slate-700">
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="text-slate-100">
             All Statements ({filteredStatements.length}
             {searchQuery && ` of ${allStatements.length}`})
           </CardTitle>
@@ -186,7 +186,7 @@ export default function StatementsPage() {
           {filteredStatements.length === 0 ? (
             <div className="text-center py-12">
               <FileText className="mx-auto h-12 w-12 text-slate-400" />
-              <h3 className="mt-4 text-lg font-semibold text-slate-900">
+              <h3 className="mt-4 text-lg font-semibold text-slate-100">
                 {searchQuery ? 'No statements found' : 'No statements yet'}
               </h3>
               <p className="text-slate-600 mt-2">
@@ -217,7 +217,7 @@ export default function StatementsPage() {
                 </TableHeader>
                 <TableBody>
                   {filteredStatements.map((statement) => (
-                    <TableRow key={statement.id} className="hover:bg-slate-50">
+                    <TableRow key={statement.id} className="hover:bg-slate-700/50 border-slate-700">
                       <TableCell className="font-mono text-xs text-slate-600">
                         {statement.id}
                       </TableCell>
@@ -226,13 +226,13 @@ export default function StatementsPage() {
                         <div>
                           <div className="font-medium">{statement.courseName}</div>
                           {statement.courseRegion && (
-                            <div className="text-xs text-slate-500">{statement.courseRegion}</div>
+                            <div className="text-xs text-slate-400">{statement.courseRegion}</div>
                           )}
                         </div>
                       </TableCell>
                       <TableCell>{statement.lines.length}</TableCell>
                       <TableCell>
-                        <span className="text-sm font-semibold text-slate-700">
+                        <span className="text-sm font-semibold text-slate-300">
                           {statement.totals.players}
                         </span>
                       </TableCell>
@@ -243,11 +243,22 @@ export default function StatementsPage() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
-                          <Button variant="ghost" size="sm">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            // TODO (Demo Scope): View action intentionally omitted for investor walkthrough.
+                            // Demo surfaces existing statements only; production should open a detail view.
+                          >
                             View
                           </Button>
                           {statement.status === 'sent' && (
-                            <Button variant="ghost" size="sm" className="text-green-600 hover:text-green-700">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-green-600 hover:text-green-700"
+                              // TODO (Demo Scope): Verification workflow deferred; demo only surfaces data.
+                              // Production should connect to a verify mutation once flow is in scope.
+                            >
                               Verify
                             </Button>
                           )}

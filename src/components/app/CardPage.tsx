@@ -22,16 +22,16 @@ export default function CardPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-md mx-auto space-y-6">
         {/* Back Link */}
-        <a href="/app" className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
-          ← {t('common.backToHome')}
+        <a href="/app" className="inline-flex items-center text-sm font-medium text-slate-400 hover:text-blue-600 transition-colors">
+          {t('common.backToHome')}
         </a>
 
         {/* Card Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-900">{t('app.card.title')}</h1>
+          <h1 className="text-4xl font-bold text-slate-100">{t('app.card.title')}</h1>
         </div>
 
         {/* Membership Card */}
@@ -46,7 +46,7 @@ export default function CardPage() {
               </div>
 
               {/* QR Code */}
-              <div className="flex justify-center bg-white p-4 rounded-lg">
+              <div className="flex justify-center bg-slate-800/50 p-4 rounded-lg border border-slate-700">
                 <QRCodeSVG value="MEMBER_USER_001" size={200} />
               </div>
 
@@ -72,7 +72,7 @@ export default function CardPage() {
               <Button
                 onClick={() => checkinMutation.mutate()}
                 disabled={checkinMutation.isPending}
-                className="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold"
+                className="w-full bg-amber-500 hover:bg-amber-400 text-slate-100 font-bold"
                 size="lg"
               >
                 {checkinMutation.isPending ? t('common.loading') : t('app.card.simulate')}

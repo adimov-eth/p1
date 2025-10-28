@@ -80,7 +80,7 @@ export default function BookingDetailPage({ bookingId }: Props) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
         <div className="max-w-md mx-auto space-y-6">
           <Skeleton className="h-48 w-full" />
           <Skeleton className="h-32 w-full" />
@@ -91,7 +91,7 @@ export default function BookingDetailPage({ bookingId }: Props) {
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
         <div className="max-w-md mx-auto">
           <Card>
             <CardContent className="pt-6 text-center text-red-500">
@@ -107,10 +107,10 @@ export default function BookingDetailPage({ bookingId }: Props) {
   const canInvite = booking.status === 'confirmed' && booking.players.length < 4;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-md mx-auto space-y-6">
         {/* Back Link */}
-        <a href="/app/bookings" className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900">
+        <a href="/app/bookings" className="inline-flex items-center text-sm text-slate-400 hover:text-slate-100">
           ← Back to Bookings
         </a>
 
@@ -120,7 +120,7 @@ export default function BookingDetailPage({ bookingId }: Props) {
             <div className="flex justify-between items-start">
               <div>
                 <CardTitle className="text-2xl">{booking.courseName}</CardTitle>
-                <p className="text-sm text-slate-600 mt-1">
+                <p className="text-sm text-slate-400 mt-1">
                   {format(new Date(booking.date), 'EEEE, MMMM d, yyyy')}
                 </p>
               </div>
@@ -129,12 +129,12 @@ export default function BookingDetailPage({ bookingId }: Props) {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-slate-700">
+              <div className="flex items-center gap-2 text-slate-300">
                 <Calendar className="h-5 w-5" />
                 <span className="font-semibold">{booking.teeTime}</span>
               </div>
 
-              <div className="flex items-center gap-2 text-slate-700">
+              <div className="flex items-center gap-2 text-slate-300">
                 <MapPin className="h-5 w-5" />
                 <span>ID: {booking.id}</span>
               </div>
@@ -207,9 +207,9 @@ export default function BookingDetailPage({ bookingId }: Props) {
           <CardContent>
             <div className="space-y-3">
               {booking.players.map((player, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div key={idx} className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg border border-slate-700">
                   <div>
-                    <p className="font-medium text-slate-900">{player.name}</p>
+                    <p className="font-medium text-slate-100">{player.name}</p>
                     <p className="text-xs text-slate-500 capitalize">{player.type}</p>
                   </div>
                   {player.type === 'guest' && (
@@ -233,7 +233,7 @@ export default function BookingDetailPage({ bookingId }: Props) {
                   const guest = guests.find((g) => g.id === inv.guestId);
                   return (
                     <div key={inv.id} className="flex justify-between items-center text-sm">
-                      <span className="text-slate-700">{guest?.name || 'Unknown'}</span>
+                      <span className="text-slate-300">{guest?.name || 'Unknown'}</span>
                       <Badge variant={inv.status === 'accepted' ? 'default' : 'outline'}>
                         {inv.status}
                       </Badge>

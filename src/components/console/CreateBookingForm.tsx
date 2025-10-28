@@ -174,7 +174,7 @@ export default function CreateBookingForm({ requestId }: CreateBookingFormProps)
 
   return (
     <Card className="max-w-2xl mx-auto">
-      <CardHeader className="bg-slate-50 border-b">
+      <CardHeader className="bg-slate-800/80 border-b border-slate-700">
         <CardTitle className="text-2xl">Create Booking</CardTitle>
       </CardHeader>
       <CardContent className="pt-6">

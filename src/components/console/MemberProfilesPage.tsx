@@ -56,9 +56,9 @@ export default function MemberProfilesPage() {
       case 'active':
         return 'bg-green-100 text-green-800 border-green-300';
       case 'inactive':
-        return 'bg-slate-100 text-slate-800 border-slate-300';
+        return 'bg-slate-800/50 text-slate-300 border-slate-700';
       default:
-        return 'bg-slate-100 text-slate-800 border-slate-300';
+        return 'bg-slate-800/50 text-slate-300 border-slate-700';
     }
   };
 
@@ -69,7 +69,7 @@ export default function MemberProfilesPage() {
       concierge: 'bg-amber-100 text-amber-800 border-amber-300',
       partner: 'bg-emerald-100 text-emerald-800 border-emerald-300',
     };
-    return roleColors[role as keyof typeof roleColors] || 'bg-slate-100 text-slate-800 border-slate-300';
+    return roleColors[role as keyof typeof roleColors] || 'bg-slate-800/50 text-slate-300 border-slate-700';
   };
 
   const getRoleLabel = (role: string) => {
@@ -91,8 +91,8 @@ export default function MemberProfilesPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Member Profiles</h1>
-          <p className="text-slate-600 mt-1">Manage all members across organizations</p>
+          <h1 className="text-3xl font-bold text-slate-100">Member Profiles</h1>
+          <p className="text-slate-400 mt-1">Manage all members across organizations</p>
         </div>
 
         <Button
@@ -110,23 +110,23 @@ export default function MemberProfilesPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Total Members</p>
-                <p className="text-2xl font-bold text-slate-900">{allMembers.length}</p>
+                <p className="text-sm text-slate-400">Total Members</p>
+                <p className="text-2xl font-bold text-slate-100">{allMembers.length}</p>
               </div>
               <Users className="h-8 w-8 text-blue-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Active</p>
+                <p className="text-sm text-slate-400">Active</p>
                 <p className="text-2xl font-bold text-green-600">{activeCount}</p>
               </div>
               <Users className="h-8 w-8 text-green-600" />
@@ -134,11 +134,11 @@ export default function MemberProfilesPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Org Admins</p>
+                <p className="text-sm text-slate-400">Org Admins</p>
                 <p className="text-2xl font-bold text-purple-600">{orgAdminCount}</p>
               </div>
               <Building2 className="h-8 w-8 text-purple-600" />
@@ -146,11 +146,11 @@ export default function MemberProfilesPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Designated</p>
+                <p className="text-sm text-slate-400">Designated</p>
                 <p className="text-2xl font-bold text-blue-600">{memberCount}</p>
               </div>
               <Users className="h-8 w-8 text-blue-600" />
@@ -160,7 +160,7 @@ export default function MemberProfilesPage() {
       </div>
 
       {/* Filters & Search */}
-      <Card>
+      <Card className="bg-slate-800/50 border-slate-700">
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
@@ -188,9 +188,9 @@ export default function MemberProfilesPage() {
       </Card>
 
       {/* Members Table */}
-      <Card>
+      <Card className="bg-slate-800/50 border-slate-700">
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="text-slate-100">
             All Members ({filteredMembers.length}
             {searchQuery && ` of ${allMembers.length}`})
           </CardTitle>
@@ -199,7 +199,7 @@ export default function MemberProfilesPage() {
           {filteredMembers.length === 0 ? (
             <div className="text-center py-12">
               <Users className="mx-auto h-12 w-12 text-slate-400" />
-              <h3 className="mt-4 text-lg font-semibold text-slate-900">
+              <h3 className="mt-4 text-lg font-semibold text-slate-100">
                 {searchQuery ? 'No members found' : 'No members yet'}
               </h3>
               <p className="text-slate-600 mt-2">
@@ -234,7 +234,7 @@ export default function MemberProfilesPage() {
                 </TableHeader>
                 <TableBody>
                   {filteredMembers.map((member) => (
-                    <TableRow key={member.id} className="hover:bg-slate-50">
+                    <TableRow key={member.id} className="hover:bg-slate-700/50 border-slate-700">
                       <TableCell className="font-mono text-xs text-slate-600">
                         {member.id}
                       </TableCell>
@@ -265,7 +265,7 @@ export default function MemberProfilesPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <span className="text-sm text-slate-700">{member.bookingsCount}</span>
+                        <span className="text-sm text-slate-300">{member.bookingsCount}</span>
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline" className={getStatusColor(member.status)}>
@@ -273,7 +273,12 @@ export default function MemberProfilesPage() {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <Button variant="ghost" size="sm">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          // TODO (Demo Scope): Profile modal out of scope for investor walkthrough.
+                          // Leave button visible to suggest the eventual navigation pattern.
+                        >
                           View
                         </Button>
                       </TableCell>

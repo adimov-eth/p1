@@ -34,7 +34,7 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6 flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6 flex items-center justify-center">
           <Card className="max-w-md w-full">
             <CardContent className="pt-6">
               <div className="text-center space-y-4">
@@ -44,7 +44,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   </div>
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-slate-900">Something went wrong</h2>
+                  <h2 className="text-xl font-bold text-slate-100">Something went wrong</h2>
                   <p className="text-slate-600 mt-2">
                     {this.state.error?.message || 'An unexpected error occurred'}
                   </p>

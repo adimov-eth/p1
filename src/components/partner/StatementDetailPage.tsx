@@ -34,7 +34,7 @@ export default function StatementDetailPage({ statementId }: Props) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
         <div className="max-w-4xl mx-auto space-y-6">
           <Skeleton className="h-48 w-full" />
           <Skeleton className="h-64 w-full" />
@@ -45,7 +45,7 @@ export default function StatementDetailPage({ statementId }: Props) {
 
   if (!statement) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardContent className="pt-6 text-center text-red-500">
@@ -60,10 +60,10 @@ export default function StatementDetailPage({ statementId }: Props) {
   const canVerify = statement.status === 'sent';
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Back Link */}
-        <a href="/partner/statements" className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900">
+        <a href="/partner/statements" className="inline-flex items-center text-sm text-slate-400 hover:text-slate-100">
           ← Back to Statements
         </a>
 
@@ -76,7 +76,7 @@ export default function StatementDetailPage({ statementId }: Props) {
                   <FileText className="h-6 w-6 text-blue-600" />
                   {statement.course.name}
                 </CardTitle>
-                <p className="text-slate-600 mt-2">Statement for {statement.month}</p>
+                <p className="text-slate-400 mt-2">Statement for {statement.month}</p>
               </div>
               <Badge>{statement.status}</Badge>
             </div>
@@ -85,11 +85,11 @@ export default function StatementDetailPage({ statementId }: Props) {
             <div className="flex gap-8 text-sm">
               <div>
                 <p className="text-slate-500">Total Players</p>
-                <p className="text-2xl font-bold text-slate-900 mt-1">{statement.totals.players}</p>
+                <p className="text-2xl font-bold text-slate-100 mt-1">{statement.totals.players}</p>
               </div>
               <div>
                 <p className="text-slate-500">Total Bookings</p>
-                <p className="text-2xl font-bold text-slate-900 mt-1">{statement.lines.length}</p>
+                <p className="text-2xl font-bold text-slate-100 mt-1">{statement.lines.length}</p>
               </div>
             </div>
           </CardContent>
@@ -103,17 +103,17 @@ export default function StatementDetailPage({ statementId }: Props) {
           <CardContent>
             <div className="space-y-3">
               {statement.lines.map((line, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div key={idx} className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg border border-slate-700">
                   <div>
-                    <p className="font-medium text-slate-900">
+                    <p className="font-medium text-slate-100">
                       Booking {line.bookingId}
                     </p>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-slate-400">
                       {format(new Date(line.date), 'MMMM d, yyyy')}
                     </p>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="text-slate-700">
+                    <span className="text-slate-300">
                       {line.playersCount} player{line.playersCount > 1 ? 's' : ''}
                     </span>
                     {line.confirmed ? (
@@ -141,7 +141,7 @@ export default function StatementDetailPage({ statementId }: Props) {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-slate-400">
                   Please review the activity details above. If everything is correct, verify the statement.
                   If you find any discrepancies, you can dispute it.
                 </p>

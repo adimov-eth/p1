@@ -22,12 +22,12 @@ export default function DashboardPage() {
   const pendingRequests = mockState.data.bookingRequests.filter((r) => r.status === 'pending');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">{t('console.dashboard.title')}</h1>
-          <p className="text-slate-600 mt-1">{t('console.dashboard.subtitle')}</p>
+          <h1 className="text-3xl font-bold text-slate-100">{t('console.dashboard.title')}</h1>
+          <p className="text-slate-400 mt-1">{t('console.dashboard.subtitle')}</p>
         </div>
 
         {/* SLA Metrics */}
@@ -73,14 +73,14 @@ export default function DashboardPage() {
         </div>
 
         {/* Request Queue */}
-        <Card className="shadow-lg border-slate-200">
-          <CardHeader className="bg-slate-50 border-b border-slate-200">
+        <Card className="shadow-lg border-slate-700 bg-slate-800/50">
+          <CardHeader className="bg-slate-800/80 border-b border-slate-700">
             <div className="flex justify-between items-center">
-              <CardTitle className="flex items-center gap-2 text-slate-900">
-                <Calendar className="h-5 w-5 text-slate-700" />
+              <CardTitle className="flex items-center gap-2 text-slate-100">
+                <Calendar className="h-5 w-5 text-slate-400" />
                 Booking Requests
               </CardTitle>
-              <Badge className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-bold">
+              <Badge className="bg-amber-500 text-slate-900 hover:bg-amber-600 font-bold">
                 {pendingRequests.length} pending
               </Badge>
             </div>
@@ -95,23 +95,23 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={req.id}
-                      className="group relative flex items-center justify-between p-6 bg-gradient-to-r from-white to-slate-50 rounded-xl border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-200"
+                      className="group relative flex items-center justify-between p-6 bg-gradient-to-r from-slate-800 to-slate-700 rounded-xl border border-slate-600 hover:border-blue-400 hover:shadow-lg transition-all duration-200"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-blue-500/10 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity" />
 
                       <div className="relative flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <p className="font-bold text-xl text-slate-900">{req.userName}</p>
-                          <Badge variant="secondary" className="font-semibold text-xs px-3 py-1">
+                          <p className="font-bold text-xl text-slate-100">{req.userName}</p>
+                          <Badge variant="secondary" className="font-semibold text-xs px-3 py-1 bg-slate-700 text-slate-300">
                             {org?.name || 'Unknown Org'}
                           </Badge>
                         </div>
-                        <p className="text-sm font-medium text-slate-600 mt-2 pl-1">
-                          <span className="text-slate-400">"</span>
+                        <p className="text-sm font-medium text-slate-300 mt-2 pl-1">
+                          <span className="text-slate-500">"</span>
                           <span className="italic">{req.message}</span>
-                          <span className="text-slate-400">"</span>
+                          <span className="text-slate-500">"</span>
                         </p>
-                        <p className="text-xs text-slate-400 mt-2 pl-1">{timeAgo}</p>
+                        <p className="text-xs text-slate-500 mt-2 pl-1">{timeAgo}</p>
                       </div>
 
                       <Button
@@ -125,7 +125,7 @@ export default function DashboardPage() {
                   );
                 })
               ) : (
-                <p className="text-center text-slate-500 py-8">No pending requests</p>
+                <p className="text-center text-slate-400 py-8">No pending requests</p>
               )}
             </div>
           </CardContent>
@@ -149,29 +149,29 @@ export default function DashboardPage() {
 
           <button
             onClick={() => {}}
-            className="group relative overflow-hidden p-8 bg-white rounded-2xl border-2 border-slate-200 hover:border-blue-300 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 text-center"
+            className="group relative overflow-hidden p-8 bg-slate-800 rounded-2xl border-2 border-slate-700 hover:border-blue-400 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 text-center"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative">
               <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-                <Calendar className="h-12 w-12 mx-auto text-slate-700" strokeWidth={2} />
+                <Calendar className="h-12 w-12 mx-auto text-slate-300" strokeWidth={2} />
               </div>
-              <div className="font-bold text-lg text-slate-900">Manage Bookings</div>
-              <div className="text-xs text-slate-500 mt-1">View & edit reservations</div>
+              <div className="font-bold text-lg text-slate-100">Manage Bookings</div>
+              <div className="text-xs text-slate-400 mt-1">View & edit reservations</div>
             </div>
           </button>
 
           <button
             onClick={() => {}}
-            className="group relative overflow-hidden p-8 bg-white rounded-2xl border-2 border-slate-200 hover:border-blue-300 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 text-center"
+            className="group relative overflow-hidden p-8 bg-slate-800 rounded-2xl border-2 border-slate-700 hover:border-blue-400 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 text-center"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative">
-              <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="mb-4 group-hover:scale-110 transition-transform duration-300 text-3xl">
                 👥
               </div>
-              <div className="font-bold text-lg text-slate-900">Member Profiles</div>
-              <div className="text-xs text-slate-500 mt-1">Member management</div>
+              <div className="font-bold text-lg text-slate-100">Member Profiles</div>
+              <div className="text-xs text-slate-400 mt-1">Member management</div>
             </div>
           </button>
         </div>

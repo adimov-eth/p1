@@ -24,12 +24,12 @@ export default function StatementsListPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-4xl font-bold text-slate-900">{t('partner.statements.title')}</h1>
-          <p className="text-slate-600 mt-2 text-lg">{t('partner.statements.subtitle')}</p>
+          <h1 className="text-4xl font-bold text-slate-100">{t('partner.statements.title')}</h1>
+          <p className="text-slate-400 mt-2 text-lg">{t('partner.statements.subtitle')}</p>
         </div>
 
         {/* Statements List */}
@@ -42,7 +42,7 @@ export default function StatementsListPage() {
           ) : data && data.items.length > 0 ? (
             data.items.map((statement) => (
               <a key={statement.id} href={`/partner/statements/${statement.id}`} className="block">
-                <Card className="bg-white border-2 border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all">
+                <Card className="bg-slate-800/50 border-2 border-slate-700 hover:border-blue-400 hover:shadow-lg transition-all">
                   <CardContent className="pt-6">
                     <div className="flex items-start justify-between">
                       <div className="flex gap-4 flex-1">
@@ -53,14 +53,14 @@ export default function StatementsListPage() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
-                            <h3 className="font-bold text-xl text-slate-900">
+                            <h3 className="font-bold text-xl text-slate-100">
                               {statement.course.name}
                             </h3>
                             <Badge className={statusColors[statement.status]}>
                               {t(`partner.statements.status.${statement.status}`)}
                             </Badge>
                           </div>
-                          <div className="flex items-center gap-4 text-sm text-slate-700 font-medium">
+                          <div className="flex items-center gap-4 text-sm text-slate-300 font-medium">
                             <div className="flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
                               <span>{statement.month}</span>

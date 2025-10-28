@@ -15,7 +15,7 @@ function BookingCard({ booking }: { booking: Booking }) {
 
   const statusColors = {
     confirmed: 'bg-green-500 text-white font-semibold',
-    pending: 'bg-yellow-500 text-slate-900 font-semibold',
+    pending: 'bg-yellow-500 text-slate-100 font-semibold',
     cancelled: 'bg-red-500 text-white font-semibold',
     completed: 'bg-blue-500 text-white font-semibold',
   };
@@ -74,16 +74,16 @@ export default function BookingsPage() {
   ) || [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-md mx-auto space-y-6">
         {/* Back Link */}
-        <a href="/app" className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
-          ← {t('common.backToHome')}
+        <a href="/app" className="inline-flex items-center text-sm font-medium text-slate-400 hover:text-blue-600 transition-colors">
+          {t('common.backToHome')}
         </a>
 
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-900">{t('app.bookings.title')}</h1>
+          <h1 className="text-4xl font-bold text-slate-100">{t('app.bookings.title')}</h1>
         </div>
 
         {/* Tabs */}

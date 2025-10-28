@@ -89,7 +89,7 @@ export default function ESignWidget({ orgId }: ESignWidgetProps) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
         <div className="max-w-2xl mx-auto space-y-6">
           <Skeleton className="h-48 w-full" />
           <Skeleton className="h-96 w-full" />
@@ -100,7 +100,7 @@ export default function ESignWidget({ orgId }: ESignWidgetProps) {
 
   if (!org) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
         <div className="max-w-2xl mx-auto">
           <Card>
             <CardContent className="pt-6 text-center text-red-500">
@@ -114,21 +114,21 @@ export default function ESignWidget({ orgId }: ESignWidgetProps) {
 
   if (isComplete) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6 flex items-center justify-center">
         <Card className="max-w-md w-full">
           <CardContent className="pt-6">
             <div className="text-center space-y-4">
               <div className="flex justify-center">
                 <CheckCircle2 className="h-16 w-16 text-green-600" />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900">Agreement Signed!</h2>
+              <h2 className="text-2xl font-bold text-slate-100">Agreement Signed!</h2>
               <p className="text-slate-600">
                 Thank you for signing the membership agreement. Your organization status has been
                 updated.
               </p>
               <div className="pt-4">
                 <div className="text-sm text-slate-500">Organization:</div>
-                <div className="font-semibold text-slate-900">{org.name}</div>
+                <div className="font-semibold text-slate-100">{org.name}</div>
                 <div className="text-sm text-slate-500 mt-2">Status:</div>
                 <div className="font-semibold text-green-600">Invoiced</div>
               </div>
@@ -146,11 +146,11 @@ export default function ESignWidget({ orgId }: ESignWidgetProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-slate-900">Membership Agreement</h1>
+          <h1 className="text-4xl font-bold text-slate-100">Membership Agreement</h1>
           <p className="text-slate-600 mt-2">{org.name}</p>
         </div>
 
@@ -163,9 +163,9 @@ export default function ESignWidget({ orgId }: ESignWidgetProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4 text-sm text-slate-700">
-              <div className="bg-slate-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-slate-900 mb-2">Membership Benefits</h3>
+            <div className="space-y-4 text-sm text-slate-300">
+              <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                <h3 className="font-semibold text-slate-100 mb-2">Membership Benefits</h3>
                 <ul className="list-disc list-inside space-y-1">
                   <li>Annual quota: {org.annualQuotaDefault} rounds per year</li>
                   <li>Access to 80+ premium golf courses</li>
@@ -175,8 +175,8 @@ export default function ESignWidget({ orgId }: ESignWidgetProps) {
                 </ul>
               </div>
 
-              <div className="bg-slate-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-slate-900 mb-2">Cancellation Policy</h3>
+              <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                <h3 className="font-semibold text-slate-100 mb-2">Cancellation Policy</h3>
                 <ul className="list-disc list-inside space-y-1">
                   <li>48-hour cancellation window for round restoration</li>
                   <li>Cancellations within 48h: round forfeited</li>
@@ -184,8 +184,8 @@ export default function ESignWidget({ orgId }: ESignWidgetProps) {
                 </ul>
               </div>
 
-              <div className="bg-slate-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-slate-900 mb-2">Financial Terms</h3>
+              <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                <h3 className="font-semibold text-slate-100 mb-2">Financial Terms</h3>
                 <ul className="list-disc list-inside space-y-1">
                   <li>Annual membership fee: ฿949,000</li>
                   <li>Payment due upon invoice receipt</li>
@@ -262,7 +262,7 @@ export default function ESignWidget({ orgId }: ESignWidgetProps) {
               </div>
 
               {/* Consent Checkbox */}
-              <div className="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
+              <div className="flex items-start gap-3 p-4 bg-slate-900/50 rounded-lg border border-slate-700">
                 <Checkbox
                   id="consentAgreed"
                   checked={consentAgreed}

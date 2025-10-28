@@ -55,13 +55,13 @@ export default function ManageBookingsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return 'bg-green-100 text-green-800 border-green-300';
+        return 'bg-green-900/30 text-green-400 border-green-800/50';
       case 'completed':
-        return 'bg-blue-100 text-blue-800 border-blue-300';
+        return 'bg-blue-900/30 text-blue-400 border-blue-800/50';
       case 'cancelled':
-        return 'bg-red-100 text-red-800 border-red-300';
+        return 'bg-red-900/30 text-red-400 border-red-800/50';
       default:
-        return 'bg-slate-100 text-slate-800 border-slate-300';
+        return 'bg-slate-800/50 text-slate-400 border-slate-700';
     }
   };
 
@@ -70,8 +70,8 @@ export default function ManageBookingsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">Manage Bookings</h1>
-          <p className="text-slate-600 mt-1">View and manage all golf course reservations</p>
+          <h1 className="text-3xl font-bold text-slate-100">Manage Bookings</h1>
+          <p className="text-slate-400 mt-1">View and manage all golf course reservations</p>
         </div>
 
         <Button
@@ -86,23 +86,23 @@ export default function ManageBookingsPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Total Bookings</p>
-                <p className="text-2xl font-bold text-slate-900">{allBookings.length}</p>
+                <p className="text-sm text-slate-400">Total Bookings</p>
+                <p className="text-2xl font-bold text-slate-100">{allBookings.length}</p>
               </div>
               <Calendar className="h-8 w-8 text-blue-600" />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Confirmed</p>
+                <p className="text-sm text-slate-400">Confirmed</p>
                 <p className="text-2xl font-bold text-green-600">
                   {allBookings.filter((b) => b.status === 'confirmed').length}
                 </p>
@@ -112,11 +112,11 @@ export default function ManageBookingsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Completed</p>
+                <p className="text-sm text-slate-400">Completed</p>
                 <p className="text-2xl font-bold text-blue-600">
                   {allBookings.filter((b) => b.status === 'completed').length}
                 </p>
@@ -126,11 +126,11 @@ export default function ManageBookingsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-slate-800/50 border-slate-700">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Cancelled</p>
+                <p className="text-sm text-slate-400">Cancelled</p>
                 <p className="text-2xl font-bold text-red-600">
                   {allBookings.filter((b) => b.status === 'cancelled').length}
                 </p>
@@ -142,7 +142,7 @@ export default function ManageBookingsPage() {
       </div>
 
       {/* Filters & Search */}
-      <Card>
+      <Card className="bg-slate-800/50 border-slate-700">
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
@@ -170,9 +170,9 @@ export default function ManageBookingsPage() {
       </Card>
 
       {/* Bookings Table */}
-      <Card>
+      <Card className="bg-slate-800/50 border-slate-700">
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="text-slate-100">
             All Bookings ({filteredBookings.length}
             {searchQuery && ` of ${allBookings.length}`})
           </CardTitle>
@@ -181,10 +181,10 @@ export default function ManageBookingsPage() {
           {filteredBookings.length === 0 ? (
             <div className="text-center py-12">
               <Calendar className="mx-auto h-12 w-12 text-slate-400" />
-              <h3 className="mt-4 text-lg font-semibold text-slate-900">
+              <h3 className="mt-4 text-lg font-semibold text-slate-100">
                 {searchQuery ? 'No bookings found' : 'No bookings yet'}
               </h3>
-              <p className="text-slate-600 mt-2">
+              <p className="text-slate-400 mt-2">
                 {searchQuery
                   ? 'Try adjusting your search query'
                   : 'Create your first booking to get started'}
@@ -214,36 +214,41 @@ export default function ManageBookingsPage() {
                 </TableHeader>
                 <TableBody>
                   {filteredBookings.map((booking) => (
-                    <TableRow key={booking.id} className="hover:bg-slate-50">
-                      <TableCell className="font-mono text-xs text-slate-600">
+                    <TableRow key={booking.id} className="hover:bg-slate-700/50 border-slate-700">
+                      <TableCell className="font-mono text-xs text-slate-400">
                         {booking.id}
                       </TableCell>
-                      <TableCell className="font-medium">{booking.primaryPlayerName}</TableCell>
-                      <TableCell>{booking.orgName}</TableCell>
+                      <TableCell className="font-medium text-slate-100">{booking.primaryPlayerName}</TableCell>
+                      <TableCell className="text-slate-300">{booking.orgName}</TableCell>
                       <TableCell>
                         <div>
-                          <div className="font-medium">{booking.courseName}</div>
+                          <div className="font-medium text-slate-100">{booking.courseName}</div>
                           {booking.courseRegion && (
-                            <div className="text-xs text-slate-500">{booking.courseRegion}</div>
+                            <div className="text-xs text-slate-400">{booking.courseRegion}</div>
                           )}
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="text-slate-300">
                         {new Date(booking.date).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric',
                           year: 'numeric',
                         })}
                       </TableCell>
-                      <TableCell>{booking.teeTime}</TableCell>
-                      <TableCell>{booking.players.length}</TableCell>
+                      <TableCell className="text-slate-300">{booking.teeTime}</TableCell>
+                      <TableCell className="text-slate-300">{booking.players.length}</TableCell>
                       <TableCell>
                         <Badge variant="outline" className={getStatusColor(booking.status)}>
                           {booking.status}
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <Button variant="ghost" size="sm">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          // TODO (Demo Scope): No detail view during investor walkthrough; button kept for layout parity.
+                          // Wire up navigation when booking management flows are implemented.
+                        >
                           View
                         </Button>
                       </TableCell>

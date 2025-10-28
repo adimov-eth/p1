@@ -28,7 +28,7 @@ export default function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
         <div className="max-w-md mx-auto space-y-6">
           <Skeleton className="h-32 w-full" />
           <Skeleton className="h-48 w-full" />
@@ -39,7 +39,7 @@ export default function HomePage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
         <div className="max-w-md mx-auto">
           <Card>
             <CardContent className="pt-6">
@@ -54,12 +54,12 @@ export default function HomePage() {
   const { usageSummary, nextBooking } = data!;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-md mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-slate-900">{t('app.home.title')}</h1>
-          <p className="text-slate-600 mt-2">Acme Corporation</p>
+          <h1 className="text-3xl font-bold text-slate-100">{t('app.home.title')}</h1>
+          <p className="text-slate-400 mt-2">Acme Corporation</p>
         </div>
 
         {/* Demo Reset Button (Dev Only) */}
@@ -132,7 +132,7 @@ export default function HomePage() {
                       {format(new Date(nextBooking.date), 'EEEE, MMMM d, yyyy')}
                     </p>
                   </div>
-                  <Badge className="bg-amber-500 text-slate-900 hover:bg-amber-400 font-bold px-3 py-1">
+                  <Badge className="bg-amber-500 text-slate-100 hover:bg-amber-400 font-bold px-3 py-1">
                     {nextBooking.teeTime}
                   </Badge>
                 </div>
@@ -154,17 +154,17 @@ export default function HomePage() {
         <div className="grid grid-cols-2 gap-4">
           <a
             href="/app/card"
-            className="block p-6 bg-white rounded-xl border-2 border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all text-center group"
+            className="block p-6 bg-slate-800/50 rounded-xl border-2 border-slate-700 hover:border-blue-400 hover:shadow-lg transition-all text-center group"
           >
             <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">🏌️</div>
-            <div className="font-semibold text-slate-900">Digital Card</div>
+            <div className="font-semibold text-slate-100">Digital Card</div>
           </a>
           <a
             href="/app/bookings"
-            className="block p-6 bg-white rounded-xl border-2 border-slate-200 hover:border-blue-400 hover:shadow-lg transition-all text-center group"
+            className="block p-6 bg-slate-800/50 rounded-xl border-2 border-slate-700 hover:border-blue-400 hover:shadow-lg transition-all text-center group"
           >
             <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">📅</div>
-            <div className="font-semibold text-slate-900">My Bookings</div>
+            <div className="font-semibold text-slate-100">My Bookings</div>
           </a>
         </div>
       </div>

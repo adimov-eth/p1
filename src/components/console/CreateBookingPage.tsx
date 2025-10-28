@@ -8,7 +8,7 @@ export default function CreateBookingPage() {
   const requestId = searchParams.get('requestId') || undefined;
 
   return (
-    <div className="min-h-screen bg-slate-50 p-6">
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
           <button
