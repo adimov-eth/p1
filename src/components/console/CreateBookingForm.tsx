@@ -62,7 +62,7 @@ export default function CreateBookingForm({ requestId }: CreateBookingFormProps)
       orgId: request?.orgId || (organizations[0]?.id ?? ''),
       userId: request?.userId || '',
       courseId: '',
-      date: '',
+      date: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0], // Tomorrow's date in YYYY-MM-DD format
       teeTime: '09:00',
       playersCount: 2,
     },
