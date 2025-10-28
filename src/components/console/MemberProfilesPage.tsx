@@ -13,6 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Search, Filter, Download, Plus, Users, Mail, Phone, Building2 } from 'lucide-react';
+import { getUserStatusColor, getUserRoleColor, getUserRoleLabel } from '@/lib/badges';
 
 export default function MemberProfilesPage() {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -51,36 +52,6 @@ export default function MemberProfilesPage() {
     );
   }, [allMembers, searchQuery]);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'bg-green-100 text-green-800 border-green-300';
-      case 'inactive':
-        return 'bg-slate-800/50 text-slate-300 border-slate-700';
-      default:
-        return 'bg-slate-800/50 text-slate-300 border-slate-700';
-    }
-  };
-
-  const getRoleBadge = (role: string) => {
-    const roleColors = {
-      org_admin: 'bg-purple-100 text-purple-800 border-purple-300',
-      designated: 'bg-blue-100 text-blue-800 border-blue-300',
-      concierge: 'bg-amber-100 text-amber-800 border-amber-300',
-      partner: 'bg-emerald-100 text-emerald-800 border-emerald-300',
-    };
-    return roleColors[role as keyof typeof roleColors] || 'bg-slate-800/50 text-slate-300 border-slate-700';
-  };
-
-  const getRoleLabel = (role: string) => {
-    const labels = {
-      org_admin: 'Admin',
-      designated: 'Member',
-      concierge: 'Concierge',
-      partner: 'Partner',
-    };
-    return labels[role as keyof typeof labels] || role;
-  };
 
   const activeCount = allMembers.filter((m) => m.status === 'active').length;
   const orgAdminCount = allMembers.filter((m) => m.role === 'org_admin').length;
@@ -240,8 +211,8 @@ export default function MemberProfilesPage() {
                       </TableCell>
                       <TableCell className="font-medium">{member.name}</TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={getRoleBadge(member.role)}>
-                          {getRoleLabel(member.role)}
+                        <Badge variant="outline" className={getUserRoleColor(member.role)}>
+                          {getUserRoleLabel(member.role)}
                         </Badge>
                       </TableCell>
                       <TableCell>{member.orgName}</TableCell>
@@ -268,7 +239,7 @@ export default function MemberProfilesPage() {
                         <span className="text-sm text-slate-300">{member.bookingsCount}</span>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={getStatusColor(member.status)}>
+                        <Badge variant="outline" className={getUserStatusColor(member.status)}>
                           {member.status}
                         </Badge>
                       </TableCell>

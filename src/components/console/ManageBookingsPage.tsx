@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/table';
 import { Search, Filter, Download, Plus, Calendar, MapPin, Users, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { getBookingStatusColor } from '@/lib/badges';
 
 export default function ManageBookingsPage() {
   const navigate = useNavigate();
@@ -52,18 +53,6 @@ export default function ManageBookingsPage() {
     );
   }, [allBookings, searchQuery]);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'confirmed':
-        return 'bg-green-900/30 text-green-400 border-green-800/50';
-      case 'completed':
-        return 'bg-blue-900/30 text-blue-400 border-blue-800/50';
-      case 'cancelled':
-        return 'bg-red-900/30 text-red-400 border-red-800/50';
-      default:
-        return 'bg-slate-800/50 text-slate-400 border-slate-700';
-    }
-  };
 
   return (
     <div className="p-6 space-y-6">
@@ -238,7 +227,7 @@ export default function ManageBookingsPage() {
                       <TableCell className="text-slate-300">{booking.teeTime}</TableCell>
                       <TableCell className="text-slate-300">{booking.players.length}</TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={getStatusColor(booking.status)}>
+                        <Badge variant="outline" className={getBookingStatusColor(booking.status)}>
                           {booking.status}
                         </Badge>
                       </TableCell>

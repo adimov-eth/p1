@@ -13,6 +13,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Search, Filter, Download, Plus, FileText, Calendar, Building2, DollarSign } from 'lucide-react';
+import { getStatementStatusColor } from '@/lib/badges';
 
 export default function StatementsPage() {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -46,22 +47,6 @@ export default function StatementsPage() {
     );
   }, [allStatements, searchQuery]);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'verified':
-        return 'bg-green-100 text-green-800 border-green-300';
-      case 'paid':
-        return 'bg-blue-100 text-blue-800 border-blue-300';
-      case 'sent':
-        return 'bg-amber-100 text-amber-800 border-amber-300';
-      case 'disputed':
-        return 'bg-red-100 text-red-800 border-red-300';
-      case 'draft':
-        return 'bg-slate-800/50 text-slate-300 border-slate-700';
-      default:
-        return 'bg-slate-800/50 text-slate-300 border-slate-700';
-    }
-  };
 
   const formatMonth = (month: string) => {
     const [year, monthNum] = month.split('-');
@@ -237,7 +222,7 @@ export default function StatementsPage() {
                         </span>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={getStatusColor(statement.status)}>
+                        <Badge variant="outline" className={getStatementStatusColor(statement.status)}>
                           {statement.status}
                         </Badge>
                       </TableCell>
