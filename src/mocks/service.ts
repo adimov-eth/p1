@@ -8,7 +8,7 @@ import type {
   ListStatementsResponse,
   VerifyStatementRequest,
 } from '@/types/api';
-import type { UsageSummary, Statement } from '@/types/domain';
+import type { UsageSummary, Statement, Booking } from '@/types/domain';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -104,6 +104,17 @@ export async function listBookings(orgId: string): Promise<ListBookingsResponse>
   return { items };
 }
 
+export async function getBooking(id: string): Promise<Booking> {
+  await delay(200);
+
+  const booking = mockState.data.bookings.find((b) => b.id === id);
+  if (!booking) {
+    throw new Error('Booking not found');
+  }
+
+  return booking;
+}
+
 export async function getBookingDetail(bookingId: string): Promise<BookingDetailResponse> {
   await delay(300);
 
@@ -158,6 +169,17 @@ export async function listStatements(): Promise<ListStatementsResponse> {
   await delay(250);
 
   return { items: mockState.data.statements };
+}
+
+export async function getStatement(id: string): Promise<Statement> {
+  await delay(200);
+
+  const statement = mockState.data.statements.find((s) => s.id === id);
+  if (!statement) {
+    throw new Error('Statement not found');
+  }
+
+  return statement;
 }
 
 export async function getStatementDetail(statementId: string): Promise<Statement | null> {

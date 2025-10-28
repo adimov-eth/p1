@@ -1,6 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import BookingDetailPageWrapper from '@/components/app/BookingDetailPageWrapper';
+import { createSeedData } from '@/mocks/seed';
+
+export async function getStaticPaths() {
+  const seed = createSeedData();
+  return seed.bookings.map((booking) => ({
+    params: { id: booking.id },
+  }));
+}
 
 const { id } = Astro.params;
 if (!id) throw new Error('Missing booking ID');

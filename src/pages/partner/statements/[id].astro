@@ -1,6 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import StatementDetailPageWrapper from '@/components/partner/StatementDetailPageWrapper';
+import { createSeedData } from '@/mocks/seed';
+
+export async function getStaticPaths() {
+  const seed = createSeedData();
+  return seed.statements.map((statement) => ({
+    params: { id: statement.id },
+  }));
+}
 
 const { id } = Astro.params;
 if (!id) throw new Error('Missing statement ID');
