@@ -98,6 +98,7 @@ export default function CreateBookingForm({ requestId }: CreateBookingFormProps)
   const hasEnoughRounds = afterRounds >= 0;
 
   const onSubmit = async (data: FormData) => {
+    console.log('🎯 [BOOKING FORM] Submit clicked', data);
     setIsSubmitting(true);
 
     try {
@@ -113,8 +114,16 @@ export default function CreateBookingForm({ requestId }: CreateBookingFormProps)
         throw new Error('Invalid selection');
       }
 
-      const bookingId = `BOOKING_${Date.now()}`;
+      console.log('📊 [BOOKING FORM] Selected entities:', {
+        org: { id: org.id, name: org.name },
+        user: { id: user.id, name: user.name },
+        course: { id: course.id, name: course.name },
+      });
 
+      const bookingId = `BOOKING_${Date.now()}`;
+      console.log('🆔 [BOOKING FORM] Generated booking ID:', bookingId);
+
+      console.log('💾 [BOOKING FORM] Mutating mockState...');
       // Create booking
       mockState.mutate((state) => {
         // Add booking
@@ -164,10 +173,11 @@ export default function CreateBookingForm({ requestId }: CreateBookingFormProps)
         }
       });
 
+      console.log('✅ [BOOKING FORM] Mutation complete, navigating to dashboard');
       // Navigate back to dashboard
       navigate('/');
     } catch (error) {
-      console.error('Failed to create booking:', error);
+      console.error('❌ [BOOKING FORM] Failed to create booking:', error);
       setIsSubmitting(false);
     }
   };
