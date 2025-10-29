@@ -413,6 +413,102 @@ export function PrimeLanding() {
         </div>
       </section>
 
+      {/* Interactive Demo Section */}
+      <section className="py-24 px-4 bg-muted/30">
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-4xl font-bold tracking-tight lg:text-5xl">
+              Experience the Platform
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Explore our interactive demo to see how Prime works for members and concierge teams
+            </p>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 max-w-5xl mx-auto">
+            {/* Member App Demo */}
+            <div className="group relative rounded-2xl border border-border/20 bg-[#1a2332] p-8 shadow-lg transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:-translate-y-1">
+              <div className="absolute top-0 right-0 size-32 bg-primary/5 rounded-full blur-3xl -z-10 transition-all duration-700 group-hover:scale-150 group-hover:bg-primary/10" />
+
+              <div className="mb-6">
+                <div className="inline-flex rounded-xl bg-primary/10 p-3 text-primary mb-4">
+                  <Users className="size-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+                  Member App
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Experience the member view with real-time booking updates, digital membership card, and instant check-in.
+                </p>
+                <ul className="space-y-2 mb-6 text-sm">
+                  <li className="flex items-start gap-2">
+                    <Star className="size-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">View bookings and rounds balance</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Star className="size-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">Digital membership card with QR</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Star className="size-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">One-tap check-in at courses</span>
+                  </li>
+                </ul>
+              </div>
+
+              <a href="/app" className="block">
+                <Button size="lg" variant="outline" className="w-full text-base hover:bg-primary/10 hover:scale-105 transition-all">
+                  Try Member App →
+                </Button>
+              </a>
+            </div>
+
+            {/* Concierge Console Demo */}
+            <div className="group relative rounded-2xl border border-border/20 bg-[#1a2332] p-8 shadow-lg transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:-translate-y-1">
+              <div className="absolute top-0 right-0 size-32 bg-primary/5 rounded-full blur-3xl -z-10 transition-all duration-700 group-hover:scale-150 group-hover:bg-primary/10" />
+
+              <div className="mb-6">
+                <div className="inline-flex rounded-xl bg-primary/10 p-3 text-primary mb-4">
+                  <Headphones className="size-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+                  Concierge Console
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  See how our concierge team manages booking requests, tracks SLA metrics, and delivers exceptional service.
+                </p>
+                <ul className="space-y-2 mb-6 text-sm">
+                  <li className="flex items-start gap-2">
+                    <Star className="size-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">Process booking requests</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Star className="size-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">Real-time analytics dashboard</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Star className="size-4 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">Member management tools</span>
+                  </li>
+                </ul>
+              </div>
+
+              <a href="/console" className="block">
+                <Button size="lg" variant="outline" className="w-full text-base hover:bg-primary/10 hover:scale-105 transition-all">
+                  Try Concierge Console →
+                </Button>
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-muted-foreground">
+              Demo contains sample data for demonstration purposes
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section id="contact" className="py-24 px-4">
         <div className="mx-auto max-w-4xl">
